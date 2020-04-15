@@ -1,0 +1,14 @@
+query GitPullRequests($input: IGitServiceInput!){
+  getGitPullRequests(input: $input) {
+    id
+    merged
+    updatedAt
+    createdAt
+    commit {
+      id
+      message
+      updatedAt
+      createdAt
+    }
+  }
+}

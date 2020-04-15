@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Page testing the pageStore 1`] = `
+Array [
+  Object {
+    "/teams/view/:team": Object {
+      "key": "team-management",
+      "name": undefined,
+    },
+  },
+  Object {
+    "/teams/dashboard": Object {
+      "icon": "usergroup-add",
+      "key": "team-creation",
+      "name": "Teams",
+    },
+  },
+]
+`;
+
+exports[`Dashboard Page testing the pageStore 2`] = `
+Array [
+  Object {
+    "/teams/view/:team": Object {
+      "component": [Function],
+      "key": "team-management",
+      "path": "/teams/view/:team",
+    },
+  },
+  Object {
+    "/teams/dashboard": Object {
+      "component": [Function],
+      "icon": "usergroup-add",
+      "key": "team-creation",
+      "name": "Teams",
+      "path": "/teams/dashboard",
+    },
+  },
+  Object {
+    "/invitation/:invitation": Object {
+      "component": [Function],
+      "key": "team-invitation",
+      "name": "Team Invitation",
+      "path": "/invitation/:invitation",
+    },
+  },
+]
+`;

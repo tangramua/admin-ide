@@ -1,0 +1,3 @@
+mutation RemoveWorkpsace($request: WorkspaceRemove_Input!) {
+    removeWorkspace(request: $request)
+}

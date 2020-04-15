@@ -1,0 +1,8 @@
+mutation updateDockerRegistry($_id: ID!, $payload: IDockerRegistry) {
+	updateDockerRegistry(_id: $_id,payload: $payload) {
+        _id
+        url
+        name
+        owner_id
+    }
+}

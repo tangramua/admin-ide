@@ -1,0 +1,44 @@
+fragment WorkspaceDetail on Workspace {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        config {
+            variables {
+                field
+                value
+            }
+        }
+        spec {
+            cpu
+            ram
+            hdd
+        }
+        launch {
+            port
+        }
+        env {
+            field
+            value
+        }
+        projects {
+            name
+            description
+            source {
+                type
+                language
+                location
+                providers
+                parameters {
+                    branch
+                    httpsUrl
+                    isPrivate
+                    }
+                }
+
+        }
+        updatedAt
+        createdAt
+}

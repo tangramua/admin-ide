@@ -1,0 +1,7 @@
+query ide($workspace: ID!) {
+    ideHealth(workspace: $workspace) {
+        git
+        xterm
+        editor
+    }
+}

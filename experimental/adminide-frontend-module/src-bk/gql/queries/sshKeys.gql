@@ -1,0 +1,10 @@
+query getSshKey($id: ID!) {
+  getSshKey(id: $id) {
+    id
+    name
+    key
+    pubKey
+    keyType
+    createdAt
+  }
+}

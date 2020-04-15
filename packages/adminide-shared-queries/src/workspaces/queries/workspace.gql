@@ -1,0 +1,63 @@
+query getWorkspace($id: ID!) {
+    workspace(id: $id) {
+        id
+        name
+        language
+        status
+        description
+        namespace
+        orgId
+        icon_url
+        connectionId
+        teamId
+        config {
+            ports {
+                application
+            }
+            globalVariables {
+                field
+                value
+            }
+            variables {
+                field
+                value
+            }
+        }
+        spec {
+            cpu
+            ram
+            hdd
+        }
+        launch {
+            port
+        }
+        env {
+            field
+            value
+        }
+        stacks {
+            type
+            chartName
+            repository
+            releaseName
+            chartVersion
+            namespace
+            connectionId
+        }
+        projects {
+            _id
+            name
+            description
+            source {
+                type
+                location
+                providers
+                parameters {
+                    branch
+                }
+            }
+        }
+        updatedAt
+        createdAt
+    }
+}

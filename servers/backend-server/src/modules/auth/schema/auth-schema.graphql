@@ -1,0 +1,25 @@
+type LoggedInUserPayload {
+  # if `id` is `null`, it means there is not logged in user
+  id: ID
+}
+
+extend type Query {
+  loggedInUser: LoggedInUserPayload!
+}
+
+type AuthenticateUserPayload {
+  token: String!
+}
+
+extend type Mutation {
+  authenticateUser(email: String!, password: String!): AuthenticateUserPayload
+}
+
+type SignupUserPayload {
+  id: ID!
+  token: String!
+}
+
+extend type Mutation {
+  signupUser(email: String!, password: String!): SignupUserPayload
+}

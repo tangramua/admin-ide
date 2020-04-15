@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connector getRoutes with static routes and configurable routes 1`] = `
+<Switch>
+  <Route
+    exact={true}
+    path="/login"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/logout"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/callback"
+    render={[Function]}
+    strict={undefined}
+  />
+</Switch>
+`;

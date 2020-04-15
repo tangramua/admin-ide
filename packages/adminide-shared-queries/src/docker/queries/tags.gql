@@ -1,0 +1,6 @@
+query tags($image: ID!) {
+  imageTags(image: $image) {
+    name
+    tags
+  }
+}

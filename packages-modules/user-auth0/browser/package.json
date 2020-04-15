@@ -1,0 +1,58 @@
+{
+    "name": "@adminide-stack/user-auth0-browser",
+    "version": "0.0.1",
+    "description": "Sample core for higher packages to depend on",
+    "main": "lib/index.js",
+    "scripts": {
+        "jest": "./node_modules/.bin/jest",
+        "test": "cross-env ENV_FILE=../../config/test/test.env jest",
+        "test:debug": "npm test -- --runInBand",
+        "test:watch": "npm test -- --watch",
+        "prepublish": "npm run build",
+        "watch": "npm run build:lib:watch",
+        "build": "npm run build:clean && npm run build:lib",
+        "build:clean": "rimraf lib",
+        "build:lib": "webpack",
+        "build:lib:watch": "npm run build:lib -- --watch",
+        "schema:download": "./node_modules/.bin/apollo-codegen download-schema http://localhost:8080/graphql --output schema.json ",
+        "schema:generate": "./node_modules/.bin/apollo codegen:generate --clientSchema=src/graphql/schema/schema.graphql --queries=src/graphql/**/*.gql --schema=schema.json --target=typescript --outputFlat ./src/graphql/gql/schema.ts"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "roots": [
+            "src"
+        ],
+        "modulePaths": [
+            "node_modules"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "json"
+        ],
+        "transform": {
+            "\\.(ts|tsx)$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+        },
+        "testRegex": "/__tests__/.*test*\\.(ts|tsx|js)$"
+    },
+    "author": "CDMBase LLC",
+    "license": "ISC",
+    "typings": "lib/index.d.ts",
+    "typescript": {
+        "definition": "lib/index.d.ts"
+    },
+    "dependencies": {
+        "@adminide-stack/account": "file:../../../packages/adminide-account",
+        "@adminide-stack/common": "file:../../../packages/adminide-common",
+        "@adminide-stack/user-core": "file:../../../packages/user-core",
+        "@adminide-stack/react-shared-components": "file:../../../packages/react-shared-components",
+        "auth0": "^2.19.0",
+        "auth0-js": "^9.11.3",
+        "auth0-lock": "11.17.2",
+        "react-cookie": "^4.0.1"
+    },
+    "peerDependencies": {
+        "react": "^16.10.2"
+    }
+}

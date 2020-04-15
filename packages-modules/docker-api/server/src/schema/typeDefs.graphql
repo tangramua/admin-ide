@@ -1,0 +1,149 @@
+type DockerImage {
+    Id: ID!
+    Os: String
+    Size: Float
+    Author: String
+    Parent: String
+    Created: String
+    Comment: String
+    Container: String
+    RepoTags: [String]
+    VirtualSize: Float
+    Architecture: String
+    RepoDigests: [String]
+    DockerVersion: String
+    RootFS: DockerRootFS
+    Config: DokerImageConfig
+    ContainerConfig: DockerContainerConfig
+    GraphDriver: DockerContainerGraphDriver
+}
+
+type DokerImageConfig {
+    Image: String
+    NetworkDisabled: Boolean
+    StdinOnce: Boolean
+    PublishService: String
+    AttachStdin: Boolean
+    OpenStdin: Boolean
+    Domainname: String
+    AttachStdout: Boolean
+    Tty: Boolean
+    Hostname: String
+    Cmd: [String]
+    Env: [String]
+    MacAddress: String
+    AttachStderr: Boolean
+    WorkingDir: String
+    User: String
+}
+
+type DockerContainerGraphDriver {
+    Name: String
+}
+
+type DockerContainerConfig {
+    Tty: Boolean
+    Hostname: String
+    Domainname: String
+    AttachStdout: Boolean
+    PublishService: String
+    AttachStdin: Boolean
+    OpenStdin: Boolean
+    StdinOnce: Boolean
+    NetworkDisabled: Boolean
+    Image: String
+    User: String
+    WorkingDir: String
+    MacAddress: String
+    AttachStderr: Boolean
+    Env: [String]
+    Cmd: [String]
+}
+
+type DockerRootFS {
+    Layers: [String]
+}
+
+type DockerSearchObject {
+    name: String
+    star_count: Int
+    description: String
+    is_official: Boolean
+    is_automated: Boolean
+}
+
+type DockerListItem {
+    Id: String
+    Size: Float
+    Created: Float
+    ParentId: String
+    SharedSize: Float
+    RepoTags: [String]
+    Containers: Float
+    VirtualSize: Float
+    RepoDigests: [String]
+}
+
+input IDockerSearchFilter {
+    prop: String
+    value: String
+}
+
+input IDockerSearchRequest {
+    limit: Int
+    term: String!
+    filters: [IDockerSearchFilter]
+}
+
+type RegistryCatalog {
+    repositories: [String]
+}
+
+type ImageTags {
+    name: String!
+    tags: [String]
+}
+
+type DockerRegistry {
+    _id: ID!
+    url: String
+    name: String
+    owner_id: String
+}
+
+input IRegistryCredentials {
+    type: String
+    token: String
+    header: String
+    username: String
+    password: String
+}
+
+input IDockerRegistry {
+    url: String
+    name: String
+    owner_id: String
+    credentials: IRegistryCredentials
+}
+
+extend type Query {
+    dockerImages: [DockerListItem]
+    dockerCatalog: RegistryCatalog
+    imageTags(image: ID!): ImageTags
+    testDockerRegistry(payload: IDockerRegistry): Boolean
+    dockerSearch(request: IDockerSearchRequest!): [DockerSearchObject] 
+
+    dockerRegistryImages(registry: String!): [DockerListItem]
+    dockerRegistryCatalog(registry: String!): RegistryCatalog
+    dockerRegistryImageTags(registry: String!, image: ID!): ImageTags
+    dockerRegistrySearch(registry: String!, request: IDockerSearchRequest!): [DockerSearchObject] 
+
+    allDockerRegistries: [DockerRegistry]
+    getDockerRegistry(_id: ID!): DockerRegistry
+}
+
+extend type Mutation {
+    removeDockerRegistry(_id: ID): Boolean
+    createDockerRegistry(payload: IDockerRegistry): DockerRegistry
+    updateDockerRegistry(_id: ID!, payload: IDockerRegistry): DockerRegistry
+}

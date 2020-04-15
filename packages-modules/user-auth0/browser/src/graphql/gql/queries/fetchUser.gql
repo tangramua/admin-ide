@@ -1,0 +1,7 @@
+#import "../fragments/UserFragment.gql"
+
+query fetchUserQuery($userId: String!) {
+    fetchAuth0User(auth0UserId: $userId){
+        ...UserFragment
+    }
+}

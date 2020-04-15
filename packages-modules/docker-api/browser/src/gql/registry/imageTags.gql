@@ -1,0 +1,6 @@
+query tags($image: ID!, $registry: String!) {
+  dockerRegistryImageTags(image: $image, registry: $registry) {
+    name
+    tags
+  }
+}

@@ -1,0 +1,7 @@
+#import "../fragments/repository.full.gql"
+
+query GitRepository($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) {
+        ...FullRepository
+    }
+}

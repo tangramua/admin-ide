@@ -1,0 +1,34 @@
+
+query getRegistryCharts($registry: String! $search: String, $filtered: Boolean) {
+  registryCharts(registry: $registry, search: $search, filtered: $filtered) {
+    short
+    icon
+    latest {
+      readme
+      version
+      created
+      app_version
+    }
+    versions {
+      attributes {
+        version
+        created
+        app_version
+      }
+    }
+    attributes {
+      home
+      name
+      repo {
+        URL
+        name
+        source
+      }
+      description
+      maintainers {
+        name
+        email
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+#import "../fragments/repository.gql"
+query GitFetchUser {
+  viewer {
+    name
+    repositories(last:30,affiliations:[OWNER,COLLABORATOR,ORGANIZATION_MEMBER]) {
+      edges {
+        node {
+              ...GitRepository
+        }
+      }
+    }
+  }
+}

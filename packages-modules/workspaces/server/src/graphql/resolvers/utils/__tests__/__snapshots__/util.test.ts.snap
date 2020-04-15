@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformWorskapce utlity test test 1`] = `
+Object {
+  "name": "dfsfsdf",
+  "namespace": "stackflow1-59ed98cca4",
+  "orgId": "5b31afefcd52937450187a2d",
+  "projects": Array [
+    Object {
+      "name": "sdarewr",
+      "source": Object {
+        "location": "",
+        "parameters": Array [
+          Object {
+            "branch": "",
+          },
+        ],
+        "providers": "NONE",
+        "type": "BLANK",
+      },
+    },
+    Object {
+      "access_token": "gitesssstoookkkkeeeen",
+      "name": "jLJfwer",
+      "source": Object {
+        "location": "",
+        "parameters": Array [
+          Object {
+            "branch": "",
+          },
+        ],
+        "providers": "GITHUB",
+        "type": "GIT",
+      },
+    },
+  ],
+  "stacks": Array [
+    Object {
+      "chartName": "aerospike",
+      "chartVersion": "0.1.7",
+      "connectionId": "iyzfRgRdZwT0ODghjYQgT",
+      "namespace": "stackflow1-59ed98cca4",
+      "releaseName": "stackflow1-59ed98cca4-sdfsafdsf",
+      "repository": "stable",
+      "type": "MONOCULAR_STACK",
+      "variables": Array [
+        Object {},
+      ],
+    },
+  ],
+}
+`;

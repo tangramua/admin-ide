@@ -1,0 +1,34 @@
+query($registry: String!, $repo: String!, $chart: String!) {
+  getRegistryChartValues(registry: $registry, repo: $repo, chart: $chart)
+  getRegistryChartReadme(registry: $registry, repo: $repo, chart: $chart)
+  getRegistryChartVersions(registry: $registry, repo: $repo, chart: $chart) {
+    attributes {
+      version
+      created
+      app_version
+    }
+  }
+
+  getRegistryChart(registry: $registry, repo: $repo, chart: $chart) {
+    icon
+    latest {
+      version
+      created
+      app_version
+    }
+    attributes {
+      home
+      name
+      repo {
+        URL
+        name
+        source
+      }
+      description
+      maintainers {
+        name
+        email
+      }
+    }
+  }
+}

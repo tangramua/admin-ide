@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Workspace Page checking generatedRoutes 1`] = `
+Array [
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/create-workspace",
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/workspace/:id/details",
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/workspace/:id/editor",
+  },
+  Object {
+    "component": [Function],
+    "exact": false,
+    "path": "/stack",
+    "routes": Array [
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/stack/charts",
+      },
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/stack/:repo/:chart",
+      },
+    ],
+  },
+  Object {
+    "component": undefined,
+    "exact": true,
+    "path": "/workspace/:id",
+  },
+]
+`;
+
+exports[`Workspace Page checking generatedRoutes 2`] = `
+<Switch>
+  <Route
+    exact={true}
+    path="/create-workspace"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/workspace/:id/details"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/workspace/:id/editor"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={false}
+    path="/stack"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/workspace/:id"
+    render={[Function]}
+    strict={undefined}
+  />
+</Switch>
+`;
+
+exports[`Workspace Page testing the pageStore 1`] = `
+Array [
+  Object {
+    "/stack/charts": Object {
+      "exact": true,
+      "key": "stack-charts",
+      "name": "Stack",
+      "position": "MIDDLE",
+    },
+  },
+]
+`;
+
+exports[`Workspace Page testing the pageStore 2`] = `
+Array [
+  Object {
+    "/create-workspace": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "create-workspace",
+      "name": "Create Workspace",
+      "path": "/create-workspace",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/workspace/:id/details": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "workspace-details",
+      "name": "Workspace Details",
+      "path": "/workspace/:id/details",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/workspace/:id/editor": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "workspace-editor",
+      "name": "Workspace Editor",
+      "path": "/workspace/:id/editor",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/stack": Object {
+      "component": [Function],
+      "exact": false,
+      "key": "stack",
+      "name": "Stack",
+      "path": "/stack",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/stack/charts": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "stack-charts",
+      "name": "Stack",
+      "path": "/stack/charts",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/stack/:repo/:chart": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "stack-repo-chart",
+      "name": "Stack Chart",
+      "path": "/stack/:repo/:chart",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/workspace/:id": Object {
+      "exact": true,
+      "key": "workspace",
+      "name": "Workspace",
+      "path": "/workspace/:id",
+      "position": "MIDDLE",
+    },
+  },
+]
+`;

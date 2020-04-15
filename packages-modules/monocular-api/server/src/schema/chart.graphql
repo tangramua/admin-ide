@@ -1,0 +1,89 @@
+type MonocularRepo {
+    URL: String
+    name: String
+    source: String
+}
+
+type ChartMaintainers {
+    name: String
+    email: String
+}
+
+type ChartAttributes {
+    home: String
+    name: String
+    repo: MonocularRepo
+    description: String
+    maintainers: [ChartMaintainers]
+}
+
+type ChartVersionAttributes {
+    urls: [String]
+    readme: String
+    version: String
+    created: String
+    app_version: String
+}
+
+type ChartVersion {
+    id: String
+    type: String
+    attributes: ChartVersionAttributes
+}
+
+type Chart {
+    id: String
+    type: String
+    icon: String
+    short: String
+    values: String
+    readme: String
+    versions: [ChartVersion]
+    attributes: ChartAttributes
+    latest: ChartVersionAttributes
+}
+
+type MonocularRegistry {
+    _id: ID!
+    url: String
+    name: String
+    owner_id: String
+}
+
+input IMonocuarRegistryCredentials {
+    type: String
+    token: String
+    header: String
+    username: String
+    password: String
+}
+
+input IMonocularRegistry {
+    url: String
+    name: String
+    owner_id: String
+    credentials: IMonocuarRegistryCredentials
+}
+
+extend type Query {
+    chart(repo: String!, chart: String!): Chart
+    charts(search: String, filtered: Boolean): [Chart]
+    testMonocularRegistry(payload: IMonocularRegistry): Boolean
+    registryCharts(registry: String!, search: String, filtered: Boolean): [Chart]
+
+    allMonocularRegistries: [MonocularRegistry]
+    getMonocularRegistry(_id: ID!): MonocularRegistry
+
+    getRegistryChart(registry: String!, repo: String!, chart: String!): Chart
+    getRegistryCharts(registry: String!, search: String, filtered: Boolean): [Chart]
+
+    getRegistryChartReadme(registry: String!, repo: String!, chart: String!): String
+    getRegistryChartValues(registry: String!, repo: String!, chart: String!): String
+    getRegistryChartVersions(registry: String!, repo: String!, chart: String!): [ChartVersion]
+}
+
+extend type Mutation {
+    removeMonocularRegistry(_id: ID): Boolean
+    createMonocularRegistry(payload: IMonocularRegistry): MonocularRegistry
+    updateMonocularRegistry(_id: ID!, payload: IMonocularRegistry): MonocularRegistry
+}

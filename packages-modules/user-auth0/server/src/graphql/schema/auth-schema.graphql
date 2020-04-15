@@ -1,0 +1,71 @@
+directive @isAuthenticated on QUERY | FIELD_DEFINITION
+directive @hasScope(scope: [String]) on QUERY | FIELD
+directive @profile on QUERY | FIELD_DEFINITION
+
+input IdToken {
+    idToken: String!
+}
+input AuthProvider {
+    auth0: IdToken
+}
+
+interface IUser {
+   id: ID!
+   username: String
+   email: String
+ }
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type AuthUser implements IUser {
+    id: ID!
+
+    # Must be unique
+    # Make it required if Auth0 is the only authorization method in your app
+    auth0UserId: String
+
+    # These are some example properties that we read from Auth0
+    # They are optional because Auth0 might not have the information
+    username: String
+    email: String
+    emailVerified: String
+    givenName: String
+    familyName: String
+    picture: String
+}
+
+type UserPreviousValues {
+  auth0UserId: String
+  createdAt: DateTime!
+  emailSubscription: Boolean
+  id: ID!
+  updatedAt: DateTime!
+}
+
+enum UserOrderBy {
+  auth0UserId_ASC
+  auth0UserId_DESC
+  createdAt_ASC
+  createdAt_DESC
+  emailSubscription_ASC
+  emailSubscription_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+extend type Mutation {
+    createAuth0User(authProvider: AuthProvider): AuthUser
+    createStripeSubscription(authProvider: AuthProvider): Boolean
+    createSshKey(authProvider: AuthProvider): Boolean
+}
+
+extend type Query {
+    fetchAuth0User(auth0UserId: String!): AuthUser @profile @isAuthenticated
+}

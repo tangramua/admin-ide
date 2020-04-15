@@ -1,0 +1,485 @@
+
+
+enum InactivityInterval {
+    Hour
+    Day
+    Never
+    Week
+    HalfHour
+    FourHours
+}
+
+type WorkspaceSpec {
+  ram: Int
+  hdd: Int
+  cpu: Int
+  inactivity: Int
+}
+
+type WorkspaceRepository {
+    url: String
+    name: String
+    orgId: String
+    description: String
+}
+
+type WorkspaceEnv {
+    field: String
+    value: String
+}
+
+type WorkspaceLaunch {
+    port: Int
+}
+
+type WorkspaceProject {
+    _id: ID!
+    name: String!
+    description: String
+    source: ProjectSource
+}
+
+"""
+ Workspace is a single or group of containers for a complete application. It consists of
+ Projects and Predefined Stacks like DB etc.
+ *
+ @property
+ name: Workspace Name
+ @property
+ language: Primary language of the workspace
+ @property
+ description: Workspace Description
+ @property
+ iconUrl: ICON Url for workspace
+ @property
+ status; Workspace status
+ @property
+ config: Workspace configuration
+ @property
+ token: Workspace token
+ @property
+ url: Workspace direct access URL
+ @property
+ ownerId: Workspace Owner ID
+ @property
+ namespace: Workspace Namespace, a namespace can have many workspaces
+ @property
+ temporary: Whether workspace is temporary or not
+ @property
+ projects: Workspace with projects such as Git Repositories. It can have many projects.
+ @property
+ stacks: Monocular stack
+"""
+type Workspace {
+    id: ID
+    name: String
+    orgId: String
+    language: String
+    teamId: String
+    connectionId: String
+    description: String
+    namespace: String
+    status: String
+    icon_url: String
+    env: [WorkspaceEnv]
+    stacks: [Stack]
+    launch: WorkspaceLaunch
+    spec: WorkspaceSpec
+    matches: [Workspace]
+    config: WorkspaceConfig
+    projects: [WorkspaceProject]
+    updatedAt: String 
+    createdAt: String
+}
+
+type EnvironmentVariable {
+    field: String
+    value: String
+    secured: Boolean
+}
+
+type WorkspaceMetadata {
+    namespace: String
+    orgId: String
+    identities: JSON
+}
+
+input EnvironmentVariable_Input {
+    field: String
+    value: String
+    secured: Boolean
+}
+
+input WorkspaceVariables_Input {
+    workspace: String!
+    variables: [EnvironmentVariable_Input]
+    ports: WorkspacePorts_Input
+    globalVariables: [EnvironmentVariable_Input]
+}
+
+
+type WorkspaceCommand {
+    id: String
+    commandLine: JSON
+    name: String
+    type: String
+}
+"""
+ * @description Workspace Metainfo usually provided by environment and its readonly.
+ * @property domainName: Domain name of the workspace
+"""
+type WorkspaceMetaInfo {
+    domainName: String
+}
+type WorkspaceConfig {
+    id: ID
+    name: String
+    dnsId: String
+    dnsName: String
+    defaultEnv: String
+    description: String
+    command: [WorkspaceCommand]
+    spec: WorkspaceSpec
+    containerId: String
+    ports: WorkspacePorts
+    variables: [EnvironmentVariable]
+    globalVariables: [EnvironmentVariable]
+    metaInfo: WorkspaceMetaInfo
+}
+
+
+"""
+ Stack would be the workspace environment. Basically the containers the user will
+ be having.
+ IDE Editor comes as default stack with various flavor of Docker image.
+ Additional the user can choose any collection of stack from Monocular charts.
+ Cluster information such as `cluster`, `namespace` and `trillerNamespace` can be hidden
+ if the user haven't integrated with their kubernetes cluster.
+ The values file can be edited and only diff values need to be send to backend.
+ *
+ @property
+ type: Type of the stack. `IDE_STACK` is a private stack whoes the details won't be shown in UI.
+                          It is used for creating IDE based on the machine flavors.
+ @property
+ repository: The repository for installing the chart. Default is Monocular charts.
+ @property
+ releaseName: Chart Release name when installing it. It will be a unique name.
+ @property
+ chartName: Name of the chart to be installed.
+ @property
+ chartVersion: Version of the chart to be installed.
+ @property
+ namespace: In case chart installed in a different namespace.
+ @property
+ cluster: If the different cluster was installed. (not supported yet)
+ @property
+ tillerNamespace: (Not supported yet)
+ @property
+ valuesFile: YAML file format to send to backend.
+ @property
+ overrideSetVariables: Key, Value parit to override values.
+ @property
+ variables: Environment variables to add to the stack additionally.
+"""
+type Stack {
+    id: ID
+    connectionId: String
+    type: StackType
+    chartName: String!
+    chartVersion: String!
+    cluster: String
+    repository: String!
+    releaseName: String!
+    valuesFile: JSON
+    tillerNamespace: String
+    overrideSetVariables: JSON
+    variables: [EnvironmentVariable]
+    namespace: String
+}
+
+enum StackType {
+    IDE_STACK
+    CUSTOM_STACK
+    MONOCULAR_STACK
+}
+
+type WorkspacePorts {
+    application: String
+    management: String
+    worker: String
+}
+
+input WorkspacePorts_Input {
+    application: String
+    management: String
+    worker: String
+}
+
+input Stack_Input {
+    type: String
+    valuesFile: String
+    chartName: String!
+    repository: String!
+    releaseName: String!
+    chartVersion: String!
+    variables: [EnvironmentVariable_Input]
+}
+
+"""
+ Various Source Providers for Projects Source.
+"""
+enum ProjectSourceProviders {
+    GITHUB
+    BITBUCKET
+    GITLAB
+    VSTS
+    NONE
+}
+
+"""
+ Various types of sources.
+"""
+enum ProjectSourceType {
+    GIT
+    BLANK
+    ZIP
+}
+
+type ProjectSource {
+    location: String
+    type: ProjectSourceType
+    parameters: ProjectParameters
+    providers: ProjectSourceProviders
+    language: String
+}
+
+input ProjectSource_Input {
+    location: String
+    type: ProjectSourceType
+    parameters: ProjectParameters_Input
+    providers: ProjectSourceProviders
+    language: String
+}
+
+type ProjectParameters {
+    branch: String
+    httpsUrl: String
+    isPrivate: Boolean
+}
+input ProjectParameters_Input {
+    branch: String
+    httpsUrl: String
+    isPrivate: Boolean
+}
+
+"""
+ * Project can be any of the following:
+ * i. Git Repository
+ * ii. Blank, in case the source.location is empty
+ * iii. Others like upload files or zip files
+ *
+ * @property
+ * name: Project Name
+ * @property
+ * description: Project description
+ * @property
+ * path: Path of the project in workspace
+ * @property
+ * source: Source of the project, it could Git etc. If GIT we define the branch under parameters.
+ * @property
+ * problems: If the project failed with any issues, we save them to notify the user.
+"""
+input Project_Input {
+    name: String
+    description: String
+    path: String
+    source: ProjectSource_Input
+    problems: [String]
+}
+input WorkspaceSpecConfig {
+    inactivity: Int
+}
+
+input WorkspaceRepository_Input {
+    description: String
+    name: String
+    owner: String
+    url: String
+}
+
+"""
+ User provided data to create workspace.
+"""
+input WorkspaceCreate_Input {
+    id: ID
+    name: String!
+    language: String
+    orgId: String
+    repository: WorkspaceRepository_Input
+    teamId: String
+    spec: WorkspaceSpecConfig
+    description: String
+    namespace: String
+    iconUrl: String
+    projects: [Project_Input]
+    stacks: [Stack_Input]
+}
+
+input WorkspaceUpdate_Input {
+  id: ID!
+  name: String
+  language: String
+  requestedUserId: String
+  stacks: [Stack_Input]
+  description: String
+  status: String
+  icon_url: String
+  os_version: String
+}
+
+input WorkspaceCommand_Input {
+    id: String
+    commandLine: JSON
+    name: String
+    type: String
+}
+
+input WorkspaceSpec_Input {
+  ram: Int
+  hdd: Int
+  cpu: Int
+  inactivity: Int
+}
+
+input WorkspaceMetaInfo_Input {
+    domainName: String
+}
+
+input WorkspaceConfigUpdate_Input {
+    id: ID
+    name: String
+    dnsId: String
+    dnsName: String
+    defaultEnv: String
+    description: String
+    command: [WorkspaceCommand_Input]
+    spec: WorkspaceSpec_Input
+    containerId: String
+    ports: WorkspacePorts_Input
+    variables: [EnvironmentVariable_Input]
+    globalVariables: [EnvironmentVariable_Input]
+    metaInfo: WorkspaceMetaInfo_Input
+}
+
+input WorkspaceRemove_Input {
+  id: ID!
+  orgId: String
+  requestedUserId: String
+  stacks: [Stack_Input]
+}
+
+input WorkspaceStart_Input {
+    id: ID!
+    requestedUserId: String
+    stacks: [Stack_Input]
+}
+
+input WorkspaceStop_Input {
+    id: ID!
+    requestedUserId: String
+    stacks: [Stack_Input]
+}
+
+type WorkspaceSubscriptionPayload {
+  value: Workspace
+  mutation: WorkspaceServerEvents
+}
+
+enum WorkspaceStatus {
+    WORKSPACE_STATUS_DISCONNECTED
+    WORKSPACE_STATUS_CONNECTED
+    WORKSPACE_STATUS_PENDING
+    WORKSPACE_STATUS_CREATING
+    WORKSPACE_STATUS_CREATED
+    WORKSPACE_STATUS_REMOVING
+    WORKSPACE_STATUS_REMOVED
+    WORKSPACE_STATUS_DISABLED
+    WORKSPACE_STATUS_STOPPING
+    WORKSPACE_STATUS_STOPPED
+    WORKSPACE_STATUS_UPDATING
+    WORKSPACE_STATUS_ACTIVE
+    WORKSPACE_STATUS_STARTING
+    WORKSPACE_STATUS_STARTED
+    WORKSPACE_STATUS_ERRORED
+    WORKSPACE_STATUS_FAILURE
+    WORKSPACE_STATUS_ABANDONED
+    WORKSPACE_STATUS_INACTIVE
+}
+
+enum WorkspaceServerEvents {
+    WORKSPACE_CREATED_EVENT
+    WORKSPACE_REMOVED_EVENT
+    WORKSPACE_STARTED_EVENT
+    WORKSPACE_STOPPED_EVENT
+    WORKSPACE_UPDATED_EVENT
+}
+
+enum WorkspaceDeploymentCommands {
+    CREATE_WORKSPACE
+    REMOVE_WORKSPACE
+    START_WORKSPACE
+    STOP_WORKSPACE
+    UPDATE_WORKSPACE
+}
+
+enum WorkspaceServiceCommands {
+    GET_NAMESPACES
+    CREATE_WORKSPACE
+    REMOVE_WORKSPACE
+    START_WORKSPACE
+    STOP_WORKSPACE
+    UPDATE_WORKSPACE
+
+    ADD_STACKS_TO_WORKSPACE
+    ADD_PROJECT_TO_WORKSPACE
+}
+
+input SubscribeWorkspaceFilter {
+  serverId: String
+  creatorId: String
+}
+
+
+directive @addWorkspaceMetadata  on FIELD_DEFINITION 
+directive @addNamespaceToMetadata  on FIELD_DEFINITION 
+directive @addSSHKeyData  on FIELD_DEFINITION 
+
+
+# Root Query
+extend type Query {
+    getWorkspaceStatus(id: String!): String! @isAuthenticated
+    workspaces: [Workspace] @addWorkspaceMetadata @isAuthenticated
+    workspace(id: ID!): Workspace @addWorkspaceMetadata  @isAuthenticated
+}
+
+# Mutations
+extend type Mutation {
+    addStacks(workspace: ID, stacks: [Stack_Input]!): Workspace
+    addProject(workspace: ID, project: Project_Input!): Workspace
+
+    addWorkspace(request: WorkspaceCreate_Input!): Workspace @addNamespaceToMetadata @addWorkspaceMetadata @addSSHKeyData @isAuthenticated
+    updateWorkspace(request: WorkspaceUpdate_Input!): Workspace @addWorkspaceMetadata @isAuthenticated
+    updateWorkspaceConfig(request: WorkspaceConfigUpdate_Input): Boolean @addWorkspaceMetadata @isAuthenticated
+    removeWorkspace(request: WorkspaceRemove_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    setEnvVariables(request: WorkspaceVariables_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    startWorkspace(request: WorkspaceStart_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    stopWorkspace(request: WorkspaceStop_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+}
+
+
+
+# Subscription
+extend type Subscription {
+    subscribeToWorkspace(filter: SubscribeWorkspaceFilter, mutations: [WorkspaceServerEvents]!): WorkspaceSubscriptionPayload
+}
+

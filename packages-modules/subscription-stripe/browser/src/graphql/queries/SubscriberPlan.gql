@@ -1,0 +1,15 @@
+query SubscriberPlan {
+  subscriberPlan {
+    id
+    active
+    amount
+    billing_scheme
+    currency
+    interval
+    nickname
+    itemId
+    metadata {
+      description
+    }
+  }
+}

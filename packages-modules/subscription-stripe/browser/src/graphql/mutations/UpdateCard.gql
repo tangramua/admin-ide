@@ -1,0 +1,3 @@
+mutation updateCard($cardId: String!, $cardData: UpdateCardInfo) {
+  updateCard(cardId: $cardId, cardData: $cardData)
+}

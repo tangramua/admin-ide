@@ -1,0 +1,24 @@
+{
+  "name": "@adminide-stack/zipkin-graphql",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "jest": "./node_modules/.bin/jest",
+    "test": "cross-env ENV_FILE=../../config/test/test.env jest",
+    "test:debug": "npm test -- --runInBand",
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run build",
+    "watch": "npm run build:lib:watch",
+    "build": "npm run build:clean && npm run build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "webpack",
+    "build:lib:watch": "npm run build:lib -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-opentracing": "^1.1.0",
+    "opentracing": "^0.14.3"
+  }
+}

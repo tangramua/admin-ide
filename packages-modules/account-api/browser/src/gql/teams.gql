@@ -1,0 +1,11 @@
+query Teams {
+    teams {
+        _id
+        name
+        tags
+        orgId
+        createdAt
+        updatedAt
+        description
+    }
+}

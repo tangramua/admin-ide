@@ -1,0 +1,3 @@
+query getWorkspaceStatus($id: String!) {
+  getWorkspaceStatus(id: $id)
+}

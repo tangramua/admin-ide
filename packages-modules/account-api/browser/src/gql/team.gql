@@ -1,0 +1,29 @@
+query team($team: ID!) {
+  team(team: $team) {
+    id
+    name
+    tags
+    description
+    createdAt
+    updatedAt
+    invitations {
+      id
+      role
+      email
+      teamId
+      active
+      fullName
+      invitedBy
+      createdAt
+      updatedAt
+      acceptedAt
+      tokenExpiration
+    }
+    teamMembers {
+      id
+      email
+      userId
+      role
+    }
+  }
+}

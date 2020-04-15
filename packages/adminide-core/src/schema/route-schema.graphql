@@ -1,0 +1,36 @@
+
+
+
+type  RouteData {
+    path: String
+    strict: Boolean
+    exact: Boolean
+    key: String
+    tab: String
+    position: 
+}
+
+
+type MenuItem {
+    path: String
+    name: String
+    icon: String
+    position: MenuPosition
+    authority: String
+    loading: Boolean
+    exact: Boolean
+    strict: Boolean
+    children: [MenuItem]
+}
+
+enum MenuPosition {
+    LOGO
+    UPPER
+    MIDDLE
+    LOWER
+    BOTTOM
+}
+
+enum RouteCategory {
+
+}

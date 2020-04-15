@@ -1,0 +1,8 @@
+mutation createDockerRegistry($payload: IDockerRegistry) {
+	createDockerRegistry(payload: $payload) {
+        _id
+        url
+        name
+        owner_id
+    }
+}

@@ -1,0 +1,15 @@
+mutation updateWorkspace($request: IWorkspaceUpdateRequest!) {
+    updateWorkspace(request: $request) {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        spec {
+            cpu
+            ram
+            hdd
+        }
+    }
+}

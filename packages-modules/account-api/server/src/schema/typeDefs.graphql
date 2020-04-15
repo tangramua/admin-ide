@@ -1,0 +1,121 @@
+enum TierEnum {
+    PRO
+    PERSONAL
+    ENTERPRISE
+}
+
+enum OrgainizationInvitationRole {
+    ADMIN
+    REINSTATE
+    DIRECT_MEMBER
+    BILLING_MANAGER
+}
+
+type OrgUserRole {
+    userId: String!
+    role: String!
+    inactive: Boolean
+}
+
+
+type Organization {
+    id: ID
+    name: String
+    tier: TierEnum
+    picture: String
+    stripeId: String
+    namespace: String
+    orgUserCount: Int
+    createdAt: DateTime
+    updatedAt: DateTime
+    periodStop: DateTime
+    orgMembers: [OrgUserRole]
+    periodStart: DateTime
+    billingLeaders: [String]
+    isBillingLeader: Boolean
+    mainBilingLeaderId: String
+    stripeSubscriptionId: String
+}
+
+type OrganizationMember {
+    id: String
+    user: AuthUser
+    isBillingLeader: Boolean
+    organization: Organization
+}
+
+type AccountTeam {
+    id: ID
+    _id: String
+    name: String
+    orgId: String
+    tags: [String]
+    parentTeam: AccountTeam
+    updatedAt: String
+    createdAt: String
+    description: String
+    invitations: [Invitation]
+    teamMembers: [TeamMember]
+}
+
+type TeamMember {
+    id: String
+    email: String
+    userId: String
+    role: TeamMemberRole
+}
+
+type Invitation {
+    id: ID!
+    email: String
+    teamId: String
+    role: TeamRole
+    active: Boolean
+    fullName: String
+    inviteCount: Int
+    invitedBy: String
+    createdAt: String
+    updatedAt: String
+    acceptedAt: String
+    tokenExpiration: String
+}
+
+enum TeamRole {
+    ADMIN
+    MEMBER
+}
+
+enum TeamMemberRole {
+    MEMBER
+    MAINTAINER
+}
+
+input ITeamInvitationRequest {
+    teamId: String
+    emails: [String]
+    invitedBy: String
+}
+
+input ITeamCreationRequest {
+    name: String!
+    orgId: String!
+    tags: [String]
+    emails: [String]
+    parentTeam: String
+    description: String
+}
+
+extend type Query {
+    teams: [AccountTeam]
+    team(team: ID!): AccountTeam
+    organizations: [Organization]
+    invitation(id: ID!): Invitation!
+}
+
+extend type Mutation {
+    resendInvitation(id: ID!): Boolean
+    acceptInvitation(id: ID!): Boolean
+    declineInvitation(id: ID!): Boolean
+    createTeam(request: ITeamCreationRequest!): AccountTeam
+    sendInvitation(request: ITeamInvitationRequest!): Boolean
+}

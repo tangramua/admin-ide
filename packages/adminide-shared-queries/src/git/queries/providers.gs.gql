@@ -1,0 +1,3 @@
+query providers {
+  getGitProviders
+}

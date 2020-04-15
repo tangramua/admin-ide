@@ -1,0 +1,51 @@
+fragment GitRepository on Repository {
+    name
+    url
+    description
+    descriptionHTML
+    isPrivate
+    languages(last: 30){
+      edges {
+        node {
+          name
+        }
+      }
+    }
+    primaryLanguage {
+        color
+        id
+        name
+    }
+    owner {
+        avatarUrl
+        login
+        url
+    }
+    stargazers {
+      totalCount
+    }
+    forks {
+      totalCount
+    }
+    refs(first: 100, refPrefix: "refs/heads/") {
+      totalCount
+      edges {
+        node {
+          name
+          target {
+            ...on Commit {
+              history(first:0){
+                totalCount
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+    createdAt
+    updatedAt
+}

@@ -1,0 +1,18 @@
+subscription subscribeToWorkspace ($filter: SubscribeWorkspaceFilter, $mutations: [WorkspaceServerEvents]!) {
+    subscribeToWorkspace(filter: $filter, mutations: $mutations) {
+        value {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        spec {
+            cpu
+            ram
+            hdd
+        }        
+    }
+        mutation
+    }
+}

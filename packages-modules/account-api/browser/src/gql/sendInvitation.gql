@@ -1,0 +1,3 @@
+mutation sendInvitation($request: ITeamInvitationRequest!) {
+    sendInvitation(request: $request)
+}

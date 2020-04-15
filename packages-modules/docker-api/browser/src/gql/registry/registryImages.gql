@@ -1,0 +1,5 @@
+query dockerRegistryCatalog($registry: String!) {
+    dockerRegistryCatalog(registry: $registry) {
+        repositories
+    } 
+}

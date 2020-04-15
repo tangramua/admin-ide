@@ -1,0 +1,10 @@
+#import "../fragments/UserFragment.gql"
+
+mutation registerUserMutation($idToken: String!) {
+    createSshKey(authProvider: { auth0: { idToken: $idToken }})
+    createStripeSubscription(authProvider: { auth0: { idToken: $idToken }})
+
+    createAuth0User(authProvider: { auth0: { idToken: $idToken }}) {
+        ...UserFragment
+    }
+}

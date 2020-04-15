@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Page testing the pageStore 1`] = `
+Array [
+  Object {
+    "/dashboard": Object {
+      "exact": true,
+      "key": "dashboard",
+      "name": "Dashboard",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/sharedwithme": Object {
+      "exact": true,
+      "key": "sharedwithme",
+      "name": "Shared With Me",
+      "position": "MIDDLE",
+    },
+  },
+]
+`;
+
+exports[`Dashboard Page testing the pageStore 2`] = `
+Array [
+  Object {
+    "/dashboard": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "dashboard",
+      "name": "Dashboard",
+      "path": "/dashboard",
+      "position": "MIDDLE",
+    },
+  },
+  Object {
+    "/sharedwithme": Object {
+      "component": [Function],
+      "exact": true,
+      "key": "sharedwithme",
+      "name": "Shared With Me",
+      "path": "/sharedwithme",
+      "position": "MIDDLE",
+    },
+  },
+]
+`;

@@ -1,0 +1,71 @@
+{
+  "name": "@adminide-stack/frontend-module",
+  "version": "0.0.1",
+  "description": "browser plugin for git",
+  "main": "lib/index.js",
+  "scripts": {
+    "jest": "./node_modules/.bin/jest",
+    "test": "jest",
+    "test:debug": "npm test -- --runInBand",
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run build",
+    "watch": "npm run build:lib:watch",
+    "build": "npm run build:clean && npm run build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "webpack",
+    "build:lib:watch": "npm run build:lib -- --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "src"
+    ],
+    "modulePaths": [
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*test*\\.(ts|tsx|js)$"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdmbase/fullstack-pro.git"
+  },
+  "author": "CDMBase LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cdmbase/fullstack-pro/issues"
+  },
+  "homepage": "https://github.com/cdmbase/fullstack-pro#readme",
+  "peerDependencies": {
+    "apollo-client": ">=2.0.0",
+    "react": "^16.10.2",
+    "react-apollo": "^3",
+    "react-dom": ">=16.0.0",
+    "react-router": ">=4.0.0",
+    "redux": ">=3.6.0"
+  },
+  "dependencies": {
+    "@adminide-stack/account-api-browser": "file:../account-api/browser",
+    "@adminide-stack/core": "file:../../packages/adminide-core",
+    "@adminide-stack/react-shared-components": "file:../../packages/react-shared-components",
+    "@adminide-stack/subscription-stripe-browser": "file:../subscription-stripe/browser",
+    "@adminide-stack/user-auth0-browser": "file:../user-auth0/browser",
+    "@adminide-stack/user-core": "file:../../packages/user-core",
+    "cdm-clipboard": "^2.0.1",
+    "react-cdm-clipboard.js": "2.0.0",
+    "react-fontawesome": "^1.6.1",
+    "react-idle-timer": "^4.0.9"
+  },
+  "typings": "lib/index.d.ts",
+  "typescript": {
+    "definition": "lib/index.d.ts"
+  }
+}

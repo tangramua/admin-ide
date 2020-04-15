@@ -1,0 +1,12 @@
+#import "../fragments/repository.gql"
+
+query GitSearchRepository($query: String!){
+    search(query: $query, type: REPOSITORY, first: 20) {
+        repositoryCount
+          edges {
+            node {
+              ...GitRepository
+            }
+          }
+      }
+}

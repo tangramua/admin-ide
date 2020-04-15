@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "rootDirs": ["./src","../knexfile.ts"],
+    "outDir": "./dist",
+    "typeRoots": [
+      "../../node_modules/@types/"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "dist",
+    "webpack.config.js"
+  ]
+}

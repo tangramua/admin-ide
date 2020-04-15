@@ -1,0 +1,61 @@
+[environments]
+  [environments.development]
+    name = "workspace-postprocess-server"
+    namespace = "adminide"
+    wait = true
+    watch = false
+    watch-delay = 2
+    auto-connect = false
+    dockerfile = "Dockerfile"
+    set = ["env.LOG_LEVEL=trace", 
+          "env.HEMERA_LOG_LEVEL=trace", 
+          "env.CONNECTION_ID=v1",
+          "env.NATS_URL=nats://adminide-idestack-nats.adminide.svc.cluster.local:4222",
+          "env.NATS_USER=ruser",
+          "env.NATS_PW=T0pS3cr3t",
+          "env.REDIS_URL=redis://adminide-idestack-redis.adminide.svc.cluster.local:6379",
+          "env.MONGO_URL=mongodb://adminide-idestack-mongodb.adminide.svc.cluster.local:27017/idestack",
+          "env.ZIPKIN_URL=adminide-idestack-zipkin.adminide.svc.cluster.local",
+          "env.ZIPKIN_PORT=9411",
+          ]
+    chart = ""
+  [environments.staging]
+    name = "workspace-postprocess-server"
+    namespace = "adminide"
+    wait = true
+    watch = false
+    watch-delay = 2
+    auto-connect = false
+    dockerfile = "Dockerfile"
+    set = ["env.LOG_LEVEL=info", 
+          "env.HEMERA_LOG_LEVEL=info", 
+          "env.CONNECTION_ID=v1",
+          "env.NATS_URL=nats://adminide-idestack-nats.adminide.svc.cluster.local:4222",
+          "env.NATS_USER=ruser",
+          "env.NATS_PW=T0pS3cr3t",
+          "env.REDIS_URL=redis://adminide-idestack-redis.adminide.svc.cluster.local:6379",
+          "env.MONGO_URL=mongodb://adminide-idestack-mongodb.adminide.svc.cluster.local:27017/idestack",
+          "env.ZIPKIN_URL=adminide-idestack-zipkin.adminide.svc.cluster.local",
+          "env.ZIPKIN_PORT=9411",
+          ]
+    chart = ""
+  [environments.production]
+    name = "workspace-postprocess-server"
+    namespace = "adminide"
+    wait = true
+    watch = false
+    watch-delay = 2
+    auto-connect = false
+    dockerfile = "Dockerfile"
+    set = ["env.LOG_LEVEL=info", 
+          "env.HEMERA_LOG_LEVEL=info", 
+          "env.CONNECTION_ID=v1",
+          "env.NATS_URL=nats://adminide-idestack-nats.adminide.svc.cluster.local:4222",
+          "env.NATS_USER=ruser",
+          "env.NATS_PW=T0pS3cr3t",
+          "env.REDIS_URL=redis://adminide-idestack-redis.adminide.svc.cluster.local:6379",
+          "env.MONGO_URL=mongodb://adminide-idestack-mongodb.adminide.svc.cluster.local:27017/idestack",
+          "env.ZIPKIN_URL=adminide-idestack-zipkin.adminide.svc.cluster.local",
+          "env.ZIPKIN_PORT=9411",
+          ]
+    chart = ""

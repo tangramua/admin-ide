@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "lib",
+    "declaration": true,
+    "declarationDir": "lib"
+  },
+  "lib": [
+    "es2017",
+    "dom",
+    "esnext.asynciterable"
+  ],
+  "types": [
+    "@types/node"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "dist",
+    "webpack.config.js"
+  ]
+}

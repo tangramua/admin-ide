@@ -1,0 +1,18 @@
+query PlansList {
+  plansList {
+    id
+    active
+    amount
+    billing_scheme
+    currency
+    interval
+    nickname
+    metadata {
+      description
+      order
+    }
+    transform_usage {
+      divide_by
+    }
+  }
+}

@@ -1,0 +1,8 @@
+mutation updateMonocularRegistry($_id: ID!, $payload: IMonocularRegistry) {
+	updateMonocularRegistry(_id: $_id,payload: $payload) {
+        _id
+        url
+        name
+        owner_id
+    }
+}

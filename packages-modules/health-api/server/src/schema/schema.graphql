@@ -1,0 +1,16 @@
+input IServiceHealthRequest {
+    service: String!
+    workspaceId: String!
+}   
+
+type IdeServicesHealth {
+    git: Boolean
+    ide: Boolean
+    xterm: Boolean
+}
+
+# Root Query
+extend type Query {
+    ideServices(workspaceId: String!): IdeServicesHealth!
+    serviceHealth(request: IServiceHealthRequest): Boolean!
+}

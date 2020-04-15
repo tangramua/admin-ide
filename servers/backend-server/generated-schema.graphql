@@ -1,0 +1,1255 @@
+scalar AnyObject
+scalar Date
+scalar Time
+scalar DateTime
+
+scalar JSON
+scalar JSONObject
+
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type FieldError {
+  field: String!
+  message: String!
+}
+
+type Query {
+    dummy: Int
+}
+
+type Mutation {
+    dummy: Int
+}
+
+type Subscription {
+    dummy: Int
+}
+
+#interface Node {
+#      id: ID!
+#}
+
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+,enum SshKeyType {
+  SSH_RSA
+  SSH_ED25519
+}
+
+type SshKey {
+    id: String
+    name: String
+    key: String
+    pubKey: String
+    keyType: String
+    createdAt: String
+}
+
+input SshKeyInput {
+    id: String
+    name: String!
+    pubKey: String!
+    key: String!
+    keyType: SshKeyType
+}
+
+extend type Query {
+    getSshKey(id: ID!): SshKey
+}
+
+extend type Mutation {
+    deleteSshKey(id: ID!): Boolean
+    addSshKey(key: SshKeyInput!): SshKey
+    updateSshKey(id: ID!, key: SshKeyInput!): SshKey
+},type DockerImage {
+    Id: ID!
+    Os: String
+    Size: Float
+    Author: String
+    Parent: String
+    Created: String
+    Comment: String
+    Container: String
+    RepoTags: [String]
+    VirtualSize: Float
+    Architecture: String
+    RepoDigests: [String]
+    DockerVersion: String
+    RootFS: DockerRootFS
+    Config: DokerImageConfig
+    ContainerConfig: DockerContainerConfig
+    GraphDriver: DockerContainerGraphDriver
+}
+
+type DokerImageConfig {
+    Image: String
+    NetworkDisabled: Boolean
+    StdinOnce: Boolean
+    PublishService: String
+    AttachStdin: Boolean
+    OpenStdin: Boolean
+    Domainname: String
+    AttachStdout: Boolean
+    Tty: Boolean
+    Hostname: String
+    Cmd: [String]
+    Env: [String]
+    MacAddress: String
+    AttachStderr: Boolean
+    WorkingDir: String
+    User: String
+}
+
+type DockerContainerGraphDriver {
+    Name: String
+}
+
+type DockerContainerConfig {
+    Tty: Boolean
+    Hostname: String
+    Domainname: String
+    AttachStdout: Boolean
+    PublishService: String
+    AttachStdin: Boolean
+    OpenStdin: Boolean
+    StdinOnce: Boolean
+    NetworkDisabled: Boolean
+    Image: String
+    User: String
+    WorkingDir: String
+    MacAddress: String
+    AttachStderr: Boolean
+    Env: [String]
+    Cmd: [String]
+}
+
+type DockerRootFS {
+    Layers: [String]
+}
+
+type DockerSearchObject {
+    name: String
+    star_count: Int
+    description: String
+    is_official: Boolean
+    is_automated: Boolean
+}
+
+type DockerListItem {
+    Id: String
+    Size: Float
+    Created: Float
+    ParentId: String
+    SharedSize: Float
+    RepoTags: [String]
+    Containers: Float
+    VirtualSize: Float
+    RepoDigests: [String]
+}
+
+input IDockerSearchFilter {
+    prop: String
+    value: String
+}
+
+input IDockerSearchRequest {
+    limit: Int
+    term: String!
+    filters: [IDockerSearchFilter]
+}
+
+type RegistryCatalog {
+    repositories: [String]
+}
+
+type ImageTags {
+    name: String!
+    tags: [String]
+}
+
+type DockerRegistry {
+    _id: ID!
+    url: String
+    name: String
+    owner_id: String
+}
+
+input IRegistryCredentials {
+    type: String
+    token: String
+    header: String
+    username: String
+    password: String
+}
+
+input IDockerRegistry {
+    url: String
+    name: String
+    owner_id: String
+    credentials: IRegistryCredentials
+}
+
+extend type Query {
+    dockerImages: [DockerListItem]
+    dockerCatalog: RegistryCatalog
+    imageTags(image: ID!): ImageTags
+    testDockerRegistry(payload: IDockerRegistry): Boolean
+    dockerSearch(request: IDockerSearchRequest!): [DockerSearchObject] 
+
+    dockerRegistryImages(registry: String!): [DockerListItem]
+    dockerRegistryCatalog(registry: String!): RegistryCatalog
+    dockerRegistryImageTags(registry: String!, image: ID!): ImageTags
+    dockerRegistrySearch(registry: String!, request: IDockerSearchRequest!): [DockerSearchObject] 
+
+    allDockerRegistries: [DockerRegistry]
+    getDockerRegistry(_id: ID!): DockerRegistry
+}
+
+extend type Mutation {
+    removeDockerRegistry(_id: ID): Boolean
+    createDockerRegistry(payload: IDockerRegistry): DockerRegistry
+    updateDockerRegistry(_id: ID!, payload: IDockerRegistry): DockerRegistry
+}
+,directive @isAuthenticated on QUERY | FIELD_DEFINITION
+directive @hasScope(scope: [String]) on QUERY | FIELD
+directive @profile on QUERY | FIELD_DEFINITION
+
+input IdToken {
+    idToken: String!
+}
+input AuthProvider {
+    auth0: IdToken
+}
+
+interface IUser {
+   id: ID!
+   username: String
+   email: String
+ }
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type AuthUser implements IUser {
+    id: ID!
+
+    # Must be unique
+    # Make it required if Auth0 is the only authorization method in your app
+    auth0UserId: String
+
+    # These are some example properties that we read from Auth0
+    # They are optional because Auth0 might not have the information
+    username: String
+    email: String
+    emailVerified: String
+    givenName: String
+    familyName: String
+    picture: String
+}
+
+type UserPreviousValues {
+  auth0UserId: String
+  createdAt: DateTime!
+  emailSubscription: Boolean
+  id: ID!
+  updatedAt: DateTime!
+}
+
+enum UserOrderBy {
+  auth0UserId_ASC
+  auth0UserId_DESC
+  createdAt_ASC
+  createdAt_DESC
+  emailSubscription_ASC
+  emailSubscription_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+extend type Mutation {
+    createAuth0User(authProvider: AuthProvider): AuthUser
+    createStripeSubscription(authProvider: AuthProvider): Boolean
+    createSshKey(authProvider: AuthProvider): Boolean
+}
+
+extend type Query {
+    fetchAuth0User(auth0UserId: String!): AuthUser @profile @isAuthenticated
+}
+,
+
+enum InactivityInterval {
+    Hour
+    Day
+    Never
+    Week
+    HalfHour
+    FourHours
+}
+
+type WorkspaceSpec {
+  ram: Int
+  hdd: Int
+  cpu: Int
+  inactivity: Int
+}
+
+type WorkspaceRepository {
+    url: String
+    name: String
+    orgId: String
+    description: String
+}
+
+type WorkspaceEnv {
+    field: String
+    value: String
+}
+
+type WorkspaceLaunch {
+    port: Int
+}
+
+type WorkspaceProject {
+    _id: ID!
+    name: String!
+    description: String
+    source: ProjectSource
+}
+
+"""
+ Workspace is a single or group of containers for a complete application. It consists of
+ Projects and Predefined Stacks like DB etc.
+ *
+ @property
+ name: Workspace Name
+ @property
+ language: Primary language of the workspace
+ @property
+ description: Workspace Description
+ @property
+ iconUrl: ICON Url for workspace
+ @property
+ status; Workspace status
+ @property
+ config: Workspace configuration
+ @property
+ token: Workspace token
+ @property
+ url: Workspace direct access URL
+ @property
+ ownerId: Workspace Owner ID
+ @property
+ namespace: Workspace Namespace, a namespace can have many workspaces
+ @property
+ temporary: Whether workspace is temporary or not
+ @property
+ projects: Workspace with projects such as Git Repositories. It can have many projects.
+ @property
+ stacks: Monocular stack
+"""
+type Workspace {
+    id: ID
+    name: String
+    orgId: String
+    language: String
+    teamId: String
+    connectionId: String
+    description: String
+    namespace: String
+    status: String
+    icon_url: String
+    env: [WorkspaceEnv]
+    stacks: [Stack]
+    launch: WorkspaceLaunch
+    spec: WorkspaceSpec
+    matches: [Workspace]
+    config: WorkspaceConfig
+    projects: [WorkspaceProject]
+    updatedAt: String 
+    createdAt: String
+}
+
+type EnvironmentVariable {
+    field: String
+    value: String
+    secured: Boolean
+}
+
+type WorkspaceMetadata {
+    namespace: String
+    orgId: String
+    identities: JSON
+}
+
+input EnvironmentVariable_Input {
+    field: String
+    value: String
+    secured: Boolean
+}
+
+input WorkspaceVariables_Input {
+    workspace: String!
+    variables: [EnvironmentVariable_Input]
+    ports: WorkspacePorts_Input
+    globalVariables: [EnvironmentVariable_Input]
+}
+
+
+type WorkspaceCommand {
+    id: String
+    commandLine: JSON
+    name: String
+    type: String
+}
+"""
+ * @description Workspace Metainfo usually provided by environment and its readonly.
+ * @property domainName: Domain name of the workspace
+"""
+type WorkspaceMetaInfo {
+    domainName: String
+}
+type WorkspaceConfig {
+    id: ID
+    name: String
+    dnsId: String
+    dnsName: String
+    defaultEnv: String
+    description: String
+    command: [WorkspaceCommand]
+    spec: WorkspaceSpec
+    containerId: String
+    ports: WorkspacePorts
+    variables: [EnvironmentVariable]
+    globalVariables: [EnvironmentVariable]
+    metaInfo: WorkspaceMetaInfo
+}
+
+
+"""
+ Stack would be the workspace environment. Basically the containers the user will
+ be having.
+ IDE Editor comes as default stack with various flavor of Docker image.
+ Additional the user can choose any collection of stack from Monocular charts.
+ Cluster information such as `cluster`, `namespace` and `trillerNamespace` can be hidden
+ if the user haven't integrated with their kubernetes cluster.
+ The values file can be edited and only diff values need to be send to backend.
+ *
+ @property
+ type: Type of the stack. `IDE_STACK` is a private stack whoes the details won't be shown in UI.
+                          It is used for creating IDE based on the machine flavors.
+ @property
+ repository: The repository for installing the chart. Default is Monocular charts.
+ @property
+ releaseName: Chart Release name when installing it. It will be a unique name.
+ @property
+ chartName: Name of the chart to be installed.
+ @property
+ chartVersion: Version of the chart to be installed.
+ @property
+ namespace: In case chart installed in a different namespace.
+ @property
+ cluster: If the different cluster was installed. (not supported yet)
+ @property
+ tillerNamespace: (Not supported yet)
+ @property
+ valuesFile: YAML file format to send to backend.
+ @property
+ overrideSetVariables: Key, Value parit to override values.
+ @property
+ variables: Environment variables to add to the stack additionally.
+"""
+type Stack {
+    id: ID
+    connectionId: String
+    type: StackType
+    chartName: String!
+    chartVersion: String!
+    cluster: String
+    repository: String!
+    releaseName: String!
+    valuesFile: JSON
+    tillerNamespace: String
+    overrideSetVariables: JSON
+    variables: [EnvironmentVariable]
+    namespace: String
+}
+
+enum StackType {
+    IDE_STACK
+    CUSTOM_STACK
+    MONOCULAR_STACK
+}
+
+type WorkspacePorts {
+    application: String
+    management: String
+    worker: String
+}
+
+input WorkspacePorts_Input {
+    application: String
+    management: String
+    worker: String
+}
+
+input Stack_Input {
+    type: String
+    valuesFile: String
+    chartName: String!
+    repository: String!
+    releaseName: String!
+    chartVersion: String!
+    variables: [EnvironmentVariable_Input]
+}
+
+"""
+ Various Source Providers for Projects Source.
+"""
+enum ProjectSourceProviders {
+    GITHUB
+    BITBUCKET
+    GITLAB
+    VSTS
+    NONE
+}
+
+"""
+ Various types of sources.
+"""
+enum ProjectSourceType {
+    GIT
+    BLANK
+    ZIP
+}
+
+type ProjectSource {
+    location: String
+    type: ProjectSourceType
+    parameters: ProjectParameters
+    providers: ProjectSourceProviders
+    language: String
+}
+
+input ProjectSource_Input {
+    location: String
+    type: ProjectSourceType
+    parameters: ProjectParameters_Input
+    providers: ProjectSourceProviders
+    language: String
+}
+
+type ProjectParameters {
+    branch: String
+    httpsUrl: String
+    isPrivate: Boolean
+}
+input ProjectParameters_Input {
+    branch: String
+    httpsUrl: String
+    isPrivate: Boolean
+}
+
+"""
+ * Project can be any of the following:
+ * i. Git Repository
+ * ii. Blank, in case the source.location is empty
+ * iii. Others like upload files or zip files
+ *
+ * @property
+ * name: Project Name
+ * @property
+ * description: Project description
+ * @property
+ * path: Path of the project in workspace
+ * @property
+ * source: Source of the project, it could Git etc. If GIT we define the branch under parameters.
+ * @property
+ * problems: If the project failed with any issues, we save them to notify the user.
+"""
+input Project_Input {
+    name: String
+    description: String
+    path: String
+    source: ProjectSource_Input
+    problems: [String]
+}
+input WorkspaceSpecConfig {
+    inactivity: Int
+}
+
+input WorkspaceRepository_Input {
+    description: String
+    name: String
+    owner: String
+    url: String
+}
+
+"""
+ User provided data to create workspace.
+"""
+input WorkspaceCreate_Input {
+    id: ID
+    name: String!
+    language: String
+    orgId: String
+    repository: WorkspaceRepository_Input
+    teamId: String
+    spec: WorkspaceSpecConfig
+    description: String
+    namespace: String
+    iconUrl: String
+    projects: [Project_Input]
+    stacks: [Stack_Input]
+}
+
+input WorkspaceUpdate_Input {
+  id: ID!
+  name: String
+  language: String
+  requestedUserId: String
+  stacks: [Stack_Input]
+  description: String
+  status: String
+  icon_url: String
+  os_version: String
+}
+
+input WorkspaceCommand_Input {
+    id: String
+    commandLine: JSON
+    name: String
+    type: String
+}
+
+input WorkspaceSpec_Input {
+  ram: Int
+  hdd: Int
+  cpu: Int
+  inactivity: Int
+}
+
+input WorkspaceMetaInfo_Input {
+    domainName: String
+}
+
+input WorkspaceConfigUpdate_Input {
+    id: ID
+    name: String
+    dnsId: String
+    dnsName: String
+    defaultEnv: String
+    description: String
+    command: [WorkspaceCommand_Input]
+    spec: WorkspaceSpec_Input
+    containerId: String
+    ports: WorkspacePorts_Input
+    variables: [EnvironmentVariable_Input]
+    globalVariables: [EnvironmentVariable_Input]
+    metaInfo: WorkspaceMetaInfo_Input
+}
+
+input WorkspaceRemove_Input {
+  id: ID!
+  orgId: String
+  requestedUserId: String
+  stacks: [Stack_Input]
+}
+
+input WorkspaceStart_Input {
+    id: ID!
+    requestedUserId: String
+    stacks: [Stack_Input]
+}
+
+input WorkspaceStop_Input {
+    id: ID!
+    requestedUserId: String
+    stacks: [Stack_Input]
+}
+
+type WorkspaceSubscriptionPayload {
+  value: Workspace
+  mutation: WorkspaceServerEvents
+}
+
+enum WorkspaceStatus {
+    WORKSPACE_STATUS_DISCONNECTED
+    WORKSPACE_STATUS_CONNECTED
+    WORKSPACE_STATUS_PENDING
+    WORKSPACE_STATUS_CREATING
+    WORKSPACE_STATUS_CREATED
+    WORKSPACE_STATUS_REMOVING
+    WORKSPACE_STATUS_REMOVED
+    WORKSPACE_STATUS_DISABLED
+    WORKSPACE_STATUS_STOPPING
+    WORKSPACE_STATUS_STOPPED
+    WORKSPACE_STATUS_UPDATING
+    WORKSPACE_STATUS_ACTIVE
+    WORKSPACE_STATUS_STARTING
+    WORKSPACE_STATUS_STARTED
+    WORKSPACE_STATUS_ERRORED
+    WORKSPACE_STATUS_FAILURE
+    WORKSPACE_STATUS_ABANDONED
+    WORKSPACE_STATUS_INACTIVE
+}
+
+enum WorkspaceServerEvents {
+    WORKSPACE_CREATED_EVENT
+    WORKSPACE_REMOVED_EVENT
+    WORKSPACE_STARTED_EVENT
+    WORKSPACE_STOPPED_EVENT
+    WORKSPACE_UPDATED_EVENT
+}
+
+enum WorkspaceDeploymentCommands {
+    CREATE_WORKSPACE
+    REMOVE_WORKSPACE
+    START_WORKSPACE
+    STOP_WORKSPACE
+    UPDATE_WORKSPACE
+}
+
+enum WorkspaceServiceCommands {
+    GET_NAMESPACES
+    CREATE_WORKSPACE
+    REMOVE_WORKSPACE
+    START_WORKSPACE
+    STOP_WORKSPACE
+    UPDATE_WORKSPACE
+
+    ADD_STACKS_TO_WORKSPACE
+    ADD_PROJECT_TO_WORKSPACE
+}
+
+input SubscribeWorkspaceFilter {
+  serverId: String
+  creatorId: String
+}
+
+
+directive @addWorkspaceMetadata  on FIELD_DEFINITION 
+directive @addNamespaceToMetadata  on FIELD_DEFINITION 
+directive @addSSHKeyData  on FIELD_DEFINITION 
+
+
+# Root Query
+extend type Query {
+    getWorkspaceStatus(id: String!): String! @isAuthenticated
+    workspaces: [Workspace] @addWorkspaceMetadata @isAuthenticated
+    workspace(id: ID!): Workspace @addWorkspaceMetadata  @isAuthenticated
+}
+
+# Mutations
+extend type Mutation {
+    addStacks(workspace: ID, stacks: [Stack_Input]!): Workspace
+    addProject(workspace: ID, project: Project_Input!): Workspace
+
+    addWorkspace(request: WorkspaceCreate_Input!): Workspace @addNamespaceToMetadata @addWorkspaceMetadata @addSSHKeyData @isAuthenticated
+    updateWorkspace(request: WorkspaceUpdate_Input!): Workspace @addWorkspaceMetadata @isAuthenticated
+    updateWorkspaceConfig(request: WorkspaceConfigUpdate_Input): Boolean @addWorkspaceMetadata @isAuthenticated
+    removeWorkspace(request: WorkspaceRemove_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    setEnvVariables(request: WorkspaceVariables_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    startWorkspace(request: WorkspaceStart_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+    stopWorkspace(request: WorkspaceStop_Input!): Boolean  @addWorkspaceMetadata @isAuthenticated
+}
+
+
+
+# Subscription
+extend type Subscription {
+    subscribeToWorkspace(filter: SubscribeWorkspaceFilter, mutations: [WorkspaceServerEvents]!): WorkspaceSubscriptionPayload
+}
+
+,type UserSubscription {
+  active: Boolean!
+  errors: [FieldError!]
+}
+
+type UserSubscriptionCardInfo {
+  exp_year: Int
+  exp_month: Int
+  last4: String
+  brand: String
+  id: String
+}
+
+type SubscriberNumber {
+  number: Int
+}
+
+type IMetadata {
+  description: String,
+  order: String,
+}
+
+
+type SubscriberPlan {
+  id: String
+  active: Boolean,
+  amount: Int,
+  billing_scheme: String,
+  currency: String,
+  interval: String,
+  nickname: String,
+  metadata: IMetadata,
+  itemId: String,
+}
+
+type TransformUsage {
+  divide_by: Int
+}
+
+type PlanList {
+  id: String
+  active: Boolean,
+  amount: Int,
+  billing_scheme: String,
+  currency: String,
+  interval: String,
+  nickname: String,
+  metadata: IMetadata,
+  transform_usage: TransformUsage
+}
+
+type Invoices {
+  amount_due: Int,
+  amount_paid: Int,
+  amount_remaining: Int,
+  paid: Boolean,
+  date: Int,
+  due_date: Int,
+  number: String,
+  currency: String,
+}
+
+type Period {
+  end: Int,
+  start: Int,
+}
+
+type UpcomingInvoice {
+  amount: Int,
+  currency: String,
+  description: String,
+  period: Period,
+  quantity: Int
+  plan: PlanList,
+}
+
+type BankAccounts {
+  currency: String,
+  country: String,
+  last4: String,
+  account_holder_name: String,
+  bank_name: String,
+}
+
+type CustomerData {
+  account_balance: Int,
+  billing_scheme: String,
+  currency: String,
+  email: String,
+  invoice_prefix: String,
+  invoices: [Invoices],
+  upcomingInvoice: [UpcomingInvoice],
+  bankAccounts: [BankAccounts],
+}
+
+input  UpdateCardInfo {
+  exp_year: Int
+  exp_month: Int
+}
+
+extend type Query {
+  # Get current user's subscription
+  subscriptionData: CustomerData @addWorkspaceMetadata
+  # Get magic number only available to subscribers
+  subscribersOnlyNumber: SubscriberNumber
+  # Get payment information for current user's subscription
+  subscriptionCardInfo: UserSubscriptionCardInfo
+  subscriberPlan: SubscriberPlan @addWorkspaceMetadata
+  plansList: [PlanList]
+  subscriptionCards: [UserSubscriptionCardInfo] @addWorkspaceMetadata
+}
+
+extend type Mutation {
+  # Subscribe a user
+  subscribe(input: SubscribeInput!): UserSubscription!
+  # Cancel a user's subscription
+  cancel: UserSubscription!
+  # Update a user's card information
+  updateCard(cardId: String!, cardData: UpdateCardInfo): Boolean! @addWorkspaceMetadata
+
+  addCard(input: SubscribeInput!): Boolean! @addWorkspaceMetadata
+
+  deleteCard(cardId: String!): Boolean! @addWorkspaceMetadata
+
+  changePlan(oldPlanId: String, planId: String): Boolean! @addWorkspaceMetadata
+
+}
+
+input SubscribeInput {
+  token: String!
+  expiryMonth: Int!
+  expiryYear: Int!
+  last4: String!
+  brand: String!
+}
+,type MonocularRepo {
+    URL: String
+    name: String
+    source: String
+}
+
+type ChartMaintainers {
+    name: String
+    email: String
+}
+
+type ChartAttributes {
+    home: String
+    name: String
+    repo: MonocularRepo
+    description: String
+    maintainers: [ChartMaintainers]
+}
+
+type ChartVersionAttributes {
+    urls: [String]
+    readme: String
+    version: String
+    created: String
+    app_version: String
+}
+
+type ChartVersion {
+    id: String
+    type: String
+    attributes: ChartVersionAttributes
+}
+
+type Chart {
+    id: String
+    type: String
+    icon: String
+    short: String
+    values: String
+    readme: String
+    versions: [ChartVersion]
+    attributes: ChartAttributes
+    latest: ChartVersionAttributes
+}
+
+type MonocularRegistry {
+    _id: ID!
+    url: String
+    name: String
+    owner_id: String
+}
+
+input IMonocuarRegistryCredentials {
+    type: String
+    token: String
+    header: String
+    username: String
+    password: String
+}
+
+input IMonocularRegistry {
+    url: String
+    name: String
+    owner_id: String
+    credentials: IMonocuarRegistryCredentials
+}
+
+extend type Query {
+    chart(repo: String!, chart: String!): Chart
+    charts(search: String, filtered: Boolean): [Chart]
+    testMonocularRegistry(payload: IMonocularRegistry): Boolean
+    registryCharts(registry: String!, search: String, filtered: Boolean): [Chart]
+
+    allMonocularRegistries: [MonocularRegistry]
+    getMonocularRegistry(_id: ID!): MonocularRegistry
+
+    getRegistryChart(registry: String!, repo: String!, chart: String!): Chart
+    getRegistryCharts(registry: String!, search: String, filtered: Boolean): [Chart]
+
+    getRegistryChartReadme(registry: String!, repo: String!, chart: String!): String
+    getRegistryChartValues(registry: String!, repo: String!, chart: String!): String
+    getRegistryChartVersions(registry: String!, repo: String!, chart: String!): [ChartVersion]
+}
+
+extend type Mutation {
+    removeMonocularRegistry(_id: ID): Boolean
+    createMonocularRegistry(payload: IMonocularRegistry): MonocularRegistry
+    updateMonocularRegistry(_id: ID!, payload: IMonocularRegistry): MonocularRegistry
+}
+,
+
+
+enum EActivityScopes {
+    User
+    Team
+    Cluster
+    Default
+    Workspace
+    Organization
+}
+
+input IActivityCollectRequest {
+    key: String
+    span: String
+    user: String
+    duration: Int
+    status: Boolean
+    payload: String
+    timestamp: String
+    annotations: String
+    scope: EActivityScopes
+}
+
+extend type Mutation {
+    collect(request: IActivityCollectRequest!): Boolean
+},
+# A repository object from the GitHub API. This uses the exact field names returned by the
+# GitHub API for simplicity, even though the convention for GraphQL is usually to camel case.
+type GitRepository @cacheControl(maxAge:240){
+  # Just the name of the repository, e.g. GitHunt-API
+  name: String!
+  # The full name of the repository with the username, e.g. apollostack/GitHunt-API
+  full_name: String!
+  # The description of the repository
+  description: String
+  # The link to the repository on GitHub
+  html_url: String!
+  # The number of people who have starred this repository on GitHub
+  stargazers_count: Int!
+  # The number of open issues on this repository on GitHub
+  open_issues_count: Int
+  # The owner of this repository on GitHub, e.g. apollostack
+  owner: GitUser
+}
+
+# A user object from the GitHub API. This uses the exact field names returned from the GitHub API.
+type GitUser @cacheControl(maxAge:240){
+  # The name of the user, e.g. apollostack
+  login: String!
+  # The URL to a directly embeddable image for this user's avatar
+  avatar_url: String!
+  # The URL of this user's GitHub page
+  html_url: String!
+}
+
+type GitServiceCloneLinks {
+  ssh: String
+  https: String
+}
+
+type GitServiceCommit {
+  id: String
+  message: String
+  updatedAt: String
+  createdAt: String
+}
+
+type GitProfile {
+  id: String
+  provider: String
+}
+
+type GitServiceRepository {
+  id: String
+  url: String
+  name: String
+  path: String
+  owner: String
+  avatar: String
+  private: Boolean
+  createdAt: String
+  updatedAt: String
+  description: String
+  clone: GitServiceCloneLinks
+  branches: [GitServiceBranch]
+}
+
+type GitServiceBranch {
+  name: String
+  commit: GitServiceCommit
+}
+
+input IUserInput {
+  nickname: String
+}
+
+input IGitServiceInput {
+  path: String
+  query: String
+  user: IUserInput
+  provider: String!
+  repository: String
+}
+
+type GitServicePullRequest {
+  id: String
+  merged: String
+  updatedAt: String
+  createdAt: String
+  commit: GitServiceCommit
+}
+
+type GitStateRow {
+  user: String
+  status: String
+  access_token: String
+}
+
+type GitProvidersState {
+  ok: Boolean
+  gitlab: GitStateRow
+  github: GitStateRow
+  bitbucket: GitStateRow
+}
+
+extend type Query {
+  getGitProviders: [String]
+  getGitProfiles: [GitProfile]
+  getGitProvidersState: GitProvidersState
+  getGitBranches(input: IGitServiceInput!): [GitServiceBranch]
+  getGitRepositories(input: IGitServiceInput!): [GitServiceRepository]
+  getGitPullRequests(input: IGitServiceInput!): [GitServicePullRequest]
+},enum TierEnum {
+    PRO
+    PERSONAL
+    ENTERPRISE
+}
+
+enum OrgainizationInvitationRole {
+    ADMIN
+    REINSTATE
+    DIRECT_MEMBER
+    BILLING_MANAGER
+}
+
+type OrgUserRole {
+    userId: String!
+    role: String!
+    inactive: Boolean
+}
+
+
+type Organization {
+    id: ID
+    name: String
+    tier: TierEnum
+    picture: String
+    stripeId: String
+    namespace: String
+    orgUserCount: Int
+    createdAt: DateTime
+    updatedAt: DateTime
+    periodStop: DateTime
+    orgMembers: [OrgUserRole]
+    periodStart: DateTime
+    billingLeaders: [String]
+    isBillingLeader: Boolean
+    mainBilingLeaderId: String
+    stripeSubscriptionId: String
+}
+
+type OrganizationMember {
+    id: String
+    user: AuthUser
+    isBillingLeader: Boolean
+    organization: Organization
+}
+
+type AccountTeam {
+    id: ID
+    _id: String
+    name: String
+    orgId: String
+    tags: [String]
+    parentTeam: AccountTeam
+    updatedAt: String
+    createdAt: String
+    description: String
+    invitations: [Invitation]
+    teamMembers: [TeamMember]
+}
+
+type TeamMember {
+    id: String
+    email: String
+    userId: String
+    role: TeamMemberRole
+}
+
+type Invitation {
+    id: ID!
+    email: String
+    teamId: String
+    role: TeamRole
+    active: Boolean
+    fullName: String
+    inviteCount: Int
+    invitedBy: String
+    createdAt: String
+    updatedAt: String
+    acceptedAt: String
+    tokenExpiration: String
+}
+
+enum TeamRole {
+    ADMIN
+    MEMBER
+}
+
+enum TeamMemberRole {
+    MEMBER
+    MAINTAINER
+}
+
+input ITeamInvitationRequest {
+    teamId: String
+    emails: [String]
+    invitedBy: String
+}
+
+input ITeamCreationRequest {
+    name: String!
+    orgId: String!
+    tags: [String]
+    emails: [String]
+    parentTeam: String
+    description: String
+}
+
+extend type Query {
+    teams: [AccountTeam]
+    team(team: ID!): AccountTeam
+    organizations: [Organization]
+    invitation(id: ID!): Invitation!
+}
+
+extend type Mutation {
+    resendInvitation(id: ID!): Boolean
+    acceptInvitation(id: ID!): Boolean
+    declineInvitation(id: ID!): Boolean
+    createTeam(request: ITeamCreationRequest!): AccountTeam
+    sendInvitation(request: ITeamInvitationRequest!): Boolean
+}

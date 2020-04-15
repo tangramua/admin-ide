@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "8.4"
+install:
+  - npm config set spin=false
+  - npm install -g npm@5.2
+  - npm install -g coveralls
+  - npm install
+os:
+  - linux
+  - osx
+branches:
+  only:
+  - publish
+script:
+  - npm run test
+# Allow Travis tests to run in containers.
+sudo: false

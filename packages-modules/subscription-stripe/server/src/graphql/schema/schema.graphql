@@ -1,0 +1,135 @@
+type UserSubscription {
+  active: Boolean!
+  errors: [FieldError!]
+}
+
+type UserSubscriptionCardInfo {
+  exp_year: Int
+  exp_month: Int
+  last4: String
+  brand: String
+  id: String
+}
+
+type SubscriberNumber {
+  number: Int
+}
+
+type IMetadata {
+  description: String,
+  order: String,
+}
+
+
+type SubscriberPlan {
+  id: String
+  active: Boolean,
+  amount: Int,
+  billing_scheme: String,
+  currency: String,
+  interval: String,
+  nickname: String,
+  metadata: IMetadata,
+  itemId: String,
+}
+
+type TransformUsage {
+  divide_by: Int
+}
+
+type PlanList {
+  id: String
+  active: Boolean,
+  amount: Int,
+  billing_scheme: String,
+  currency: String,
+  interval: String,
+  nickname: String,
+  metadata: IMetadata,
+  transform_usage: TransformUsage
+}
+
+type Invoices {
+  amount_due: Int,
+  amount_paid: Int,
+  amount_remaining: Int,
+  paid: Boolean,
+  date: Int,
+  due_date: Int,
+  number: String,
+  currency: String,
+}
+
+type Period {
+  end: Int,
+  start: Int,
+}
+
+type UpcomingInvoice {
+  amount: Int,
+  currency: String,
+  description: String,
+  period: Period,
+  quantity: Int
+  plan: PlanList,
+}
+
+type BankAccounts {
+  currency: String,
+  country: String,
+  last4: String,
+  account_holder_name: String,
+  bank_name: String,
+}
+
+type CustomerData {
+  account_balance: Int,
+  billing_scheme: String,
+  currency: String,
+  email: String,
+  invoice_prefix: String,
+  invoices: [Invoices],
+  upcomingInvoice: [UpcomingInvoice],
+  bankAccounts: [BankAccounts],
+}
+
+input  UpdateCardInfo {
+  exp_year: Int
+  exp_month: Int
+}
+
+extend type Query {
+  # Get current user's subscription
+  subscriptionData: CustomerData @addWorkspaceMetadata
+  # Get magic number only available to subscribers
+  subscribersOnlyNumber: SubscriberNumber
+  # Get payment information for current user's subscription
+  subscriptionCardInfo: UserSubscriptionCardInfo
+  subscriberPlan: SubscriberPlan @addWorkspaceMetadata
+  plansList: [PlanList]
+  subscriptionCards: [UserSubscriptionCardInfo] @addWorkspaceMetadata
+}
+
+extend type Mutation {
+  # Subscribe a user
+  subscribe(input: SubscribeInput!): UserSubscription!
+  # Cancel a user's subscription
+  cancel: UserSubscription!
+  # Update a user's card information
+  updateCard(cardId: String!, cardData: UpdateCardInfo): Boolean! @addWorkspaceMetadata
+
+  addCard(input: SubscribeInput!): Boolean! @addWorkspaceMetadata
+
+  deleteCard(cardId: String!): Boolean! @addWorkspaceMetadata
+
+  changePlan(oldPlanId: String, planId: String): Boolean! @addWorkspaceMetadata
+
+}
+
+input SubscribeInput {
+  token: String!
+  expiryMonth: Int!
+  expiryYear: Int!
+  last4: String!
+  brand: String!
+}

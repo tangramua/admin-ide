@@ -1,0 +1,25 @@
+    
+query GitRepositoryOwner($login: String!, $name: String!){  
+      repositoryOwner(login: $login) {
+        repository(name: $name) {
+          name
+          url
+          owner {
+            login
+            repositories {
+              totalCount
+            }
+          }
+          description
+          forks {
+            totalCount
+          }
+          issues {
+            totalCount
+          }
+          stargazers {
+            totalCount
+          }
+        }
+      }
+ }

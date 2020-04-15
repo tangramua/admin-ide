@@ -1,0 +1,3 @@
+mutation removeWorkpsace($request: IWorkspaceRemoveRequest!) {
+    removeWorkspace(request: $request)
+}

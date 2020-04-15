@@ -1,0 +1,72 @@
+{
+  "name": "@adminide-stack/backend-module",
+  "version": "0.0.1",
+  "description": "browser plugin for git",
+  "main": "lib/index.js",
+  "scripts": {
+    "jest": "./node_modules/.bin/jest",
+    "test": "jest",
+    "test:debug": "npm test -- --runInBand",
+    "test:watch": "npm test -- --watch",
+    "prepublish": "npm run build",
+    "watch": "npm run build:lib:watch",
+    "build": "npm run build:clean && npm run build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "webpack",
+    "build:lib:watch": "npm run build:lib -- --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "src"
+    ],
+    "modulePaths": [
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*test*\\.(ts|tsx|js)$"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdmbase/fullstack-pro.git"
+  },
+  "author": "CDMBase LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cdmbase/fullstack-pro/issues"
+  },
+  "homepage": "https://github.com/cdmbase/fullstack-pro#readme",
+  "peerDependencies": {
+    "apollo-client": ">=2.4.0",
+    "react": "^16.10.2",
+    "react-apollo": "^3",
+    "react-dom": ">=16.8.6",
+    "react-router": ">=5.0.0",
+    "redux": ">=4.0.1"
+  },
+  "dependencies": {
+    "@adminide-stack/billing-api-server": "file:../billing-api/server",
+    "@adminide-stack/account-api-server": "file:../account-api/server",
+    "@adminide-stack/core": "file:../../packages/adminide-core",
+    "@adminide-stack/docker-api-server": "file:../docker-api/server",
+    "@adminide-stack/git-api-server": "file:../git-api/server",
+    "@adminide-stack/monocular-api-server": "file:../monocular-api/server",
+    "@adminide-stack/subscription-stripe-server": "file:../subscription-stripe/server",
+    "@adminide-stack/user-activity-server": "file:../user-activity/server",
+    "@adminide-stack/user-auth0-server": "file:../user-auth0/server",
+    "@adminide-stack/user-core": "file:../../packages/user-core",
+    "@adminide-stack/workspaces-server": "file:../workspaces/server"
+  },
+  "typings": "lib/index.d.ts",
+  "typescript": {
+    "definition": "lib/index.d.ts"
+  }
+}

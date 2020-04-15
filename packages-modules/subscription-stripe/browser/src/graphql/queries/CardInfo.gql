@@ -1,0 +1,8 @@
+query CardInfoQuery {
+  subscriptionCardInfo {
+    expiryMonth: exp_month
+    expiryYear: exp_year
+    last4
+    brand
+  }
+}

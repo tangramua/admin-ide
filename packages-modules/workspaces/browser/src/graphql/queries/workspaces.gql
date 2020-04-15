@@ -1,0 +1,37 @@
+query GetWorkspaces {
+    workspaces {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        config {
+            ports {
+                application
+            }
+            globalVariables {
+                field
+                value
+            }
+            variables {
+                field
+                value
+            }
+        }
+        spec {
+            cpu
+            ram
+            hdd
+        }
+        launch {
+            port
+        }
+        env {
+            field
+            value
+        }
+        updatedAt
+        createdAt
+    }
+}

@@ -1,0 +1,7 @@
+*
+!dist/
+!*.js
+!.spinrc.json
+!package.json
+!knexfile.ts
+!.npmrc

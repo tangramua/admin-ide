@@ -1,0 +1,4 @@
+
+mutation setEnvVariables($request: ISetWorkspaceVariables!) {
+    setEnvVariables(request: $request)
+}

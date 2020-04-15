@@ -1,0 +1,15 @@
+query repositories($input: IGitServiceInput!){
+  getGitRepositories(input: $input) {
+    id
+    url
+    name
+    path
+    owner
+    private
+    description
+    clone {
+        ssh
+        https
+    }
+  }
+}

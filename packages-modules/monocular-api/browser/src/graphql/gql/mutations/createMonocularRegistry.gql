@@ -1,0 +1,8 @@
+mutation createMonocularRegistry($payload: IMonocularRegistry) {
+	createMonocularRegistry(payload: $payload) {
+        _id
+        url
+        name
+        owner_id
+    }
+}

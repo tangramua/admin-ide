@@ -1,0 +1,165 @@
+overwrite: true
+schema:
+  - "servers/backend-server/src/api/root-schema.graphqls"
+generates:
+  # #### enable following lines one time to renew the github schema
+  # packages/adminide-core/src/interfaces/generated/github-schema.graphql:
+  #   schema:
+  #     -  http://api.github.com/graphql:
+  #         headers:
+  #           Authorization: Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}
+  #   plugins:
+  #     - schema-ast
+  # ##### enable for generating github types one time.
+  # packages/adminide-core/src/interfaces/generated/github-api.ts:
+  #   schema:
+  #     -  packages/adminide-core/src/interfaces/generated/github-schema.graphql
+  #   config:
+  #     typesPrefix: I
+  #   plugins:
+  #     - add: |
+  #         /* tslint:disable */
+  #     - typescript
+  packages/adminide-core/src/interfaces/generated/generated-models.ts:
+    schema:
+      - packages/adminide-core/src/interfaces/generated/github-schema.graphql
+      - "packages-modules/user-auth0/server/src/graphql/**/*.graphql"
+      - "packages-modules/user-auth0/browser/src/graphql/**/*.graphql"
+      - "packages-modules/account-api/server/src/schema/**/*.graphql"
+      - "packages-modules/docker-api/server/src/schema/**/*.graphql"
+      - "packages-modules/git-api/server/src/graphql/**/*.graphql"
+      - "packages-modules/health-api/server/src/schema/**/*.graphql"
+      - "packages-modules/monocular-api/server/src/schema/**/*.graphql"
+      - "packages-modules/subscription-stripe/server/src/graphql/**/*.graphql"
+      - "packages-modules/user-activity/server/src/graphql/**/*.graphql"
+      - "packages-modules/workspaces/server/src/graphql/**/*.graphql"
+      - "packages-modules/workspaces/browser/src/graphql/**/*.graphql"
+    documents: 
+      - "packages-modules/account-api/browser/src/gql/**/*.gql"
+      - "packages-modules/docker-api/browser/src/gql/**/*.gql"
+      - "packages-modules/git-api/browser/src/gql/**/*.gql"
+      - "packages-modules/monocular-api/browser/src/graphql/**/*.gql"
+      - "packages-modules/subscription-stripe/browser/src/graphql/**/*.gql"
+      - "packages-modules/user-activity/browser/src/graphql/**/*.gql"
+      - "packages-modules/workspaces/browser/src/graphql/**/*.gql"
+      - "packages-modules/user-auth0/browser/src/graphql/**/*.gql"
+    config:
+      enumValues:
+        InactivityInterval: ../enum#InactivityInterval
+      skipTypename: true
+      constEnums: true
+      noNamespaces: true
+      contextType: ../context#MyContext
+      typesPrefix: I
+      withMutationFn: false
+      withHOC: false
+      withComponent: false
+    plugins:
+      - add: |
+          /* tslint:disable */
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-resolvers
+  # packages/adminide-core/src/interfaces/generated-operation.ts:
+  #   schema:
+  #     - packages/adminide-core/src/interfaces/generated/github-schema.graphql
+  #     - "packages-modules/user-auth0/server/src/graphql/**/*.graphql"
+  #     - "packages-modules/user-auth0/browser/src/graphql/**/*.graphql"
+  #     - "packages-modules/account-api/server/src/schema/**/*.graphql"
+  #     - "packages-modules/docker-api/server/src/schema/**/*.graphql"
+  #     - "packages-modules/git-api/server/src/graphql/**/*.graphql"
+  #     - "packages-modules/health-api/server/src/schema/**/*.graphql"
+  #     - "packages-modules/monocular-api/server/src/schema/**/*.graphql"
+  #     - "packages-modules/subscription-stripe/server/src/graphql/**/*.graphql"
+  #     - "packages-modules/user-activity/server/src/graphql/**/*.graphql"
+  #     - "packages-modules/workspaces/server/src/graphql/**/*.graphql"
+  #     - "packages-modules/workspaces/browser/src/graphql/**/*.graphql"
+  #   documents: 
+  #     - "packages-modules/account-api/browser/src/gql/**/*.gql"
+  #     - "packages-modules/docker-api/browser/src/gql/**/*.gql"
+  #     - "packages-modules/git-api/browser/src/gql/**/*.gql"
+  #     - "packages-modules/monocular-api/browser/src/graphql/**/*.gql"
+  #     - "packages-modules/subscription-stripe/browser/src/graphql/**/*.gql"
+  #     - "packages-modules/user-activity/browser/src/graphql/**/*.gql"
+  #     - "packages-modules/workspaces/browser/src/graphql/**/*.gql"
+  #   config:
+  #     skipTypename: true
+  #     constEnums: true
+  #     namingConvention: keep
+  #     noNamespaces: true
+  #     contextType: ../context#MyContext
+  #     typesPrefix: I
+  #     withMutationFn: false
+  #     withHOC: false
+  #     withComponent: false
+  #   preset: import-types-preset
+  #   presetConfig:
+  #     typesPath: "./generated"
+  #     importTypesNamespace: SchemaTypes
+  #   plugins:
+  #     - add: |
+  #         /* tslint:disable */
+  #     - typescript-operations
+  #     - typescript-react-apollo
+  packages/react-shared-components/src/components/generated.tsx:
+    schema:
+      - packages/adminide-core/src/interfaces/generated/github-schema.graphql
+      - "packages-modules/user-auth0/server/src/graphql/**/*.graphql"
+      - "packages-modules/user-auth0/browser/src/graphql/**/*.graphql"
+      - "packages-modules/account-api/server/src/schema/**/*.graphql"
+      - "packages-modules/docker-api/server/src/schema/**/*.graphql"
+      - "packages-modules/git-api/server/src/graphql/**/*.graphql"
+      - "packages-modules/health-api/server/src/schema/**/*.graphql"
+      - "packages-modules/monocular-api/server/src/schema/**/*.graphql"
+      - "packages-modules/subscription-stripe/server/src/graphql/**/*.graphql"
+      - "packages-modules/user-activity/server/src/graphql/**/*.graphql"
+      - "packages-modules/workspaces/server/src/graphql/**/*.graphql"
+      - "packages-modules/workspaces/browser/src/graphql/**/*.graphql"
+    documents: 
+      - "packages-modules/account-api/browser/src/gql/**/*.gql"
+      - "packages-modules/docker-api/browser/src/gql/**/*.gql"
+      - "packages-modules/git-api/browser/src/gql/**/*.gql"
+      - "packages-modules/monocular-api/browser/src/graphql/**/*.gql"
+      - "packages-modules/subscription-stripe/browser/src/graphql/**/*.gql"
+      - "packages-modules/user-activity/browser/src/graphql/**/*.gql"
+      - "packages-modules/workspaces/browser/src/graphql/**/*.gql"
+      - "packages-modules/user-auth0/browser/src/graphql/**/*.gql"
+    config:
+      typesPrefix: I
+      withMutationFn: false
+      withHOC: false
+      withHooks: true
+      withComponent: false
+      noNamespaces: true
+      noGraphQLTag: true
+    preset: import-types-preset
+    presetConfig:
+      typesPath: "@adminide-stack/core"
+      importTypesNamespace: SchemaTypes
+    plugins:
+      - add: |
+          /* tslint:disable */
+      - typescript-react-apollo
+  packages-modules/workspaces/browser/src/generated/generated.tsx:
+    schema:
+      - "packages-modules/workspaces/server/src/graphql/**/*.graphql"
+      - "packages-modules/workspaces/browser/src/graphql/**/*.graphql"
+      - "packages-modules/user-auth0/server/src/graphql/**/*.graphql"
+    documents: 
+      - "packages-modules/workspaces/browser/src/graphql/**/*.gql"
+    config:
+      typesPrefix: I
+      withMutationFn: false
+      withHOC: false
+      withComponent: false
+      withHooks: true
+      noGraphQLTag: true
+    preset: import-types-preset
+    presetConfig:
+      typesPath: "@adminide-stack/core"
+      importTypesNamespace: SchemaTypes
+    plugins:
+      - add: |
+          /* tslint:disable */
+      - typescript-react-apollo

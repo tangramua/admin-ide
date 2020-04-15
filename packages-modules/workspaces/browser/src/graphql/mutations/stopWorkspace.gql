@@ -1,0 +1,3 @@
+mutation StopWorkspace($request: WorkspaceStop_Input!) {
+    stopWorkspace(request: $request)
+}

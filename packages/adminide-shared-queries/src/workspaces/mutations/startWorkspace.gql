@@ -1,0 +1,3 @@
+mutation startWorkspace($request: IWorkspaceStartRequest!) {
+    startWorkspace(request: $request)
+}

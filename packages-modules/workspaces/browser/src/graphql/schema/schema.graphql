@@ -1,0 +1,71 @@
+
+input IEnvVariableCache {
+  field: String
+  value: String
+  secured: Boolean
+}
+
+type EnvVariableCache {
+  field: String
+  value: String
+  secured: Boolean
+}
+
+input ISetWorkspaceVariablesCache {
+  workspace: String!
+  variables: [IEnvVariableCache]
+}
+
+input IWorkspaceRepoCache {
+  url: String!
+  name: String!
+  orgId: String!
+  description: String
+}
+
+input ISourceParamsCache {
+  branch: String
+}
+
+input IProjectSourceCache {
+  type: String
+  language: String
+  location: String
+  providers: String
+  parameters: ISourceParamsCache
+}
+
+input IWorkspaceProjectCache {
+  path: String
+  name: String
+  description: String
+  source: IProjectSourceCache
+}
+
+input IStackCache {
+  type: String
+  valuesFile: String
+  chartName: String!
+  repository: String!
+  releaseName: String!
+  chartVersion: String!
+  variables: [IEnvVariableCache]
+}
+
+input IWorkspaceCreateRequestCache {
+  name: String!
+  language: String
+  stacks: [IStackCache]
+  description: String
+  projects: [IWorkspaceProjectCache]
+}
+
+extend type Query {
+  restoreWorkspaceCreationForm: String!
+  workspaceState: Workspace
+}
+
+extend type Mutation {
+  clearWorkspaceCreationForm: Boolean
+  cacheWorkspaceCreationForm(request: IWorkspaceCreateRequestCache!): Boolean
+}

@@ -1,0 +1,10 @@
+query branches($input: IGitServiceInput!){
+  getGitBranches(input: $input) {
+    name
+    commit {
+      id
+      message
+      createdAt
+    }
+  }
+}

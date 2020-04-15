@@ -1,0 +1,3 @@
+mutation collectActivity($request: IActivityCollectRequest!) {
+    collectActivity(request: $request)
+}

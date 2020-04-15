@@ -1,0 +1,13 @@
+query profile {
+    profile @client {
+        accessToken
+        family_name
+        given_name
+        locale
+        name
+        nickname
+        picture
+        sub
+        updated_at
+    }
+}

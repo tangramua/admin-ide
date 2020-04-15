@@ -1,0 +1,13 @@
+fragment workspaceInfo on Workspace {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        spec {
+            cpu
+            ram
+            hdd
+        }
+}

@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accounts Page testing the pageStore 1`] = `
+Array [
+  Object {
+    "/usermenu": Object {
+      "exact": false,
+      "key": "usermenu",
+      "name": "UserMenu",
+      "position": "BOTTOM",
+      "tab": "UserMenu",
+    },
+  },
+  Object {
+    "/usermenu/billing": Object {
+      "exact": false,
+      "key": "billing",
+      "name": "Billing",
+      "tab": "Billing",
+    },
+  },
+  Object {
+    "/usermenu/billing/plans": Object {
+      "key": "plans",
+      "name": "Plans",
+      "tab": "Plans",
+    },
+  },
+  Object {
+    "/usermenu/billing/payments": Object {
+      "key": "payments",
+      "name": "Payments",
+      "tab": "Payments",
+    },
+  },
+  Object {
+    "/usermenu/billing/reports": Object {
+      "key": "paymentReports",
+      "name": "Reports",
+      "tab": "Reports",
+    },
+  },
+  Object {
+    "/usermenu/account": Object {
+      "exact": false,
+      "key": "account",
+      "name": "Accounts",
+      "tab": "Accounts",
+    },
+  },
+  Object {
+    "/usermenu/logout": Object {
+      "key": "logout",
+      "name": "Logout",
+    },
+  },
+  Object {
+    "/usermenu/account/profile": Object {
+      "key": "profile",
+      "name": "Profile Settings",
+      "tab": "Profile",
+    },
+  },
+  Object {
+    "/usermenu/account/collaborators": Object {
+      "key": "collaborators",
+      "name": "Collaborators",
+      "tab": "Collaborators",
+    },
+  },
+  Object {
+    "/usermenu/account/integration": Object {
+      "key": "integration",
+      "name": "Integration",
+      "tab": "Integration",
+    },
+  },
+  Object {
+    "/usermenu/account/tokens": Object {
+      "key": "tokens",
+      "name": "Tokens",
+      "tab": "Tokens",
+    },
+  },
+  Object {
+    "/usermenu/account/referrals": Object {
+      "key": "referrals",
+      "name": "Referrals",
+      "tab": "Referrals",
+    },
+  },
+]
+`;
+
+exports[`Accounts Page testing the pageStore 2`] = `
+Array [
+  Object {
+    "/login": Object {
+      "component": [Function],
+      "key": "login",
+      "path": "/login",
+    },
+  },
+  Object {
+    "/callback": Object {
+      "component": [Function],
+      "key": "callback",
+      "path": "/callback",
+    },
+  },
+  Object {
+    "/usermenu/billing": Object {
+      "component": [Function],
+      "exact": false,
+      "key": "billing",
+      "path": "/usermenu/billing",
+      "tab": "Billing",
+    },
+  },
+  Object {
+    "/usermenu/billing/plans": Object {
+      "component": [Function],
+      "key": "plans",
+      "path": "/usermenu/billing/plans",
+      "tab": "Plans",
+    },
+  },
+  Object {
+    "/usermenu/billing/payments": Object {
+      "component": [Function],
+      "key": "payments",
+      "path": "/usermenu/billing/payments",
+      "tab": "Payments",
+    },
+  },
+  Object {
+    "/usermenu/billing/reports": Object {
+      "component": [Function],
+      "key": "paymentReports",
+      "path": "/usermenu/billing/reports",
+      "tab": "Reports",
+    },
+  },
+  Object {
+    "/usermenu/account": Object {
+      "component": [Function],
+      "exact": false,
+      "key": "account",
+      "path": "/usermenu/account",
+      "tab": "Accounts",
+    },
+  },
+  Object {
+    "/usermenu/logout": Object {
+      "component": [Function],
+      "key": "logout",
+      "name": "Logout",
+      "path": "/usermenu/logout",
+    },
+  },
+  Object {
+    "/usermenu/account/profile": Object {
+      "component": [Function],
+      "key": "profile",
+      "name": "Profile Settings",
+      "path": "/usermenu/account/profile",
+      "tab": "Profile",
+    },
+  },
+  Object {
+    "/usermenu/account/collaborators": Object {
+      "component": [Function],
+      "key": "collaborators",
+      "path": "/usermenu/account/collaborators",
+      "tab": "Collaborators",
+    },
+  },
+  Object {
+    "/usermenu/account/integration": Object {
+      "component": [Function],
+      "key": "integration",
+      "path": "/usermenu/account/integration",
+      "tab": "Integration",
+    },
+  },
+  Object {
+    "/usermenu/account/tokens": Object {
+      "component": [Function],
+      "key": "tokens",
+      "path": "/usermenu/account/tokens",
+      "tab": "Tokens",
+    },
+  },
+  Object {
+    "/usermenu/account/referrals": Object {
+      "component": [Function],
+      "key": "referrals",
+      "path": "/usermenu/account/referrals",
+      "tab": "Referrals",
+    },
+  },
+]
+`;
+
+exports[`Accounts Page testing the pageStore 3`] = `
+Array [
+  Object {
+    "key": "profile",
+    "name": "Profile Settings",
+    "path": "/usermenu/account/profile",
+    "tab": "Profile",
+  },
+  Object {
+    "key": "collaborators",
+    "path": "/usermenu/account/collaborators",
+    "tab": "Collaborators",
+  },
+  Object {
+    "key": "integration",
+    "path": "/usermenu/account/integration",
+    "tab": "Integration",
+  },
+  Object {
+    "key": "tokens",
+    "path": "/usermenu/account/tokens",
+    "tab": "Tokens",
+  },
+  Object {
+    "key": "referrals",
+    "path": "/usermenu/account/referrals",
+    "tab": "Referrals",
+  },
+]
+`;

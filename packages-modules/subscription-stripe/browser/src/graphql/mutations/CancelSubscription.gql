@@ -1,0 +1,11 @@
+#import "../fragments/SubscriptionInfo.gql"
+
+mutation cancel {
+  cancel {
+    ...SubscriptionInfo
+    errors {
+      field
+      message
+    }
+  }
+}

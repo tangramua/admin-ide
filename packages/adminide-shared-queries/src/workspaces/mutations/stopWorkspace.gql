@@ -1,0 +1,3 @@
+mutation stopWorkspace($request: IWorkspaceStopRequest!) {
+    stopWorkspace(request: $request)
+}

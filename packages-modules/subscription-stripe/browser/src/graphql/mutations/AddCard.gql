@@ -1,0 +1,3 @@
+mutation addCard($input: SubscribeInput!) {
+  addCard(input: $input)
+}

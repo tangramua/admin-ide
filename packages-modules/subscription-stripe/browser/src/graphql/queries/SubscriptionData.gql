@@ -1,0 +1,40 @@
+query SubscriptionData {
+  subscriptionData {
+    account_balance
+    currency
+    billing_scheme
+    currency
+    email
+    invoice_prefix
+    invoices {
+      amount_due
+      amount_paid
+      amount_remaining
+      paid
+      date
+      due_date
+      number
+      currency
+    }
+    upcomingInvoice {
+      amount
+      currency
+      description
+      quantity
+      period {
+        start
+        end
+      }
+      plan {
+        nickname
+      }
+    }
+    bankAccounts {
+      currency
+      country
+      last4
+      account_holder_name
+      bank_name
+    }
+  }
+}

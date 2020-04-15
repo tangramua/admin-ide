@@ -1,0 +1,12 @@
+query invitation($id: ID!) {
+    invitation(id: $id) {
+        id
+        role
+        email
+        teamId
+        active
+        fullName
+        inviteCount
+        tokenExpiration
+    }
+}

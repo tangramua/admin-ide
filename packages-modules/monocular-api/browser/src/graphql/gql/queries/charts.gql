@@ -1,0 +1,27 @@
+
+query($search: String, $filtered: Boolean) {
+  charts(search: $search, filtered: $filtered) {
+    short
+    icon
+    latest {
+      readme
+      version
+      created
+      app_version
+    }
+    attributes {
+      home
+      name
+      repo {
+        URL
+        name
+        source
+      }
+      description
+      maintainers {
+        name
+        email
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+mutation AddWorkspace($request: WorkspaceCreate_Input!) {
+    addWorkspace(request: $request) {
+        id
+        name
+        language
+        status
+        description
+        icon_url
+        spec {
+            cpu
+            ram
+            hdd
+        }
+    }
+}

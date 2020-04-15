@@ -1,0 +1,20 @@
+query GetGitProvidersState {
+    getGitProvidersState {
+        ok
+        gitlab {
+            user
+            status
+            access_token
+        }
+        github {
+            user
+            status
+            access_token
+        }
+        bitbucket {
+            user
+            status
+            access_token
+        }
+    }
+}

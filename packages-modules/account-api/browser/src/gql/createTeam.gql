@@ -1,0 +1,11 @@
+mutation createTeam($request: ITeamCreationRequest!) {
+    createTeam(request: $request) {
+        _id
+        name
+        tags
+        orgId
+        createdAt
+        updatedAt
+        description
+    }
+}

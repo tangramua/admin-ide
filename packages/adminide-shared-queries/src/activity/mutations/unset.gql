@@ -1,0 +1,3 @@
+mutation unsetActivity($key: ID!) {
+    unsetActivity(key: $key)
+}

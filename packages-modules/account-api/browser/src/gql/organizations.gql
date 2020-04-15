@@ -1,0 +1,23 @@
+query organizations {
+    organizations {
+        id
+        name
+        tier
+        picture
+        stripeId
+        namespace
+        createdAt
+        updatedAt
+        periodStop
+        orgMembers {
+            userId
+            role
+            inactive
+        }
+        periodStart
+        billingLeaders
+        isBillingLeader
+        mainBilingLeaderId
+        stripeSubscriptionId
+    }
+}

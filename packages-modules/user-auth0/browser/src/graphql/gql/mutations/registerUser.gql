@@ -1,0 +1,7 @@
+#import "../fragments/UserFragment.gql"
+
+mutation registerUserMutationOld($idToken: String!) {
+    createAuth0User(authProvider: { auth0: { idToken: $idToken }}) {
+        ...UserFragment
+    }
+}

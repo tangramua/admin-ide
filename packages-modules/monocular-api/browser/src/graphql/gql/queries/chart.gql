@@ -1,0 +1,33 @@
+query($repo: String!, $chart: String!) {
+  chart(repo: $repo, chart: $chart) {
+    icon
+    readme
+    values
+    versions {
+      attributes {
+        version
+        created
+        app_version
+      }
+    }
+    latest {
+      version
+      created
+      app_version
+    }
+    attributes {
+      home
+      name
+      repo {
+        URL
+        name
+        source
+      }
+      description
+      maintainers {
+        name
+        email
+      }
+    }
+  }
+}

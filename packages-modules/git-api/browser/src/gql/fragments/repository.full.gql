@@ -1,0 +1,81 @@
+fragment FullRepository on Repository {
+    name
+        url
+        description
+        descriptionHTML
+        isPrivate
+        languages(last: 30){
+          edges {
+            node {
+              name
+            }
+          }
+        }
+        primaryLanguage {
+            color
+            id
+            name
+        }
+        owner {
+            avatarUrl
+            login
+            url
+        }
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        pullRequests(first:10) {
+          edges {
+            node {
+              ...on PullRequest {
+                id
+                body
+                merged
+                changedFiles
+                createdAt
+                baseRefName
+                headRefName
+                mergeCommit {
+                  id
+                  oid
+                  messageBodyHTML
+                  commitUrl
+                }
+                author {
+                  avatarUrl
+                  login
+                }
+              }
+            }
+          }
+        }
+        refs(first: 100, refPrefix: "refs/heads/") {
+          totalCount
+          edges {
+            node {
+              id
+              name
+              prefix
+              target {
+                ...on Commit {
+                  oid
+                  messageBodyHTML
+                  committedDate
+                  history(first: 5){
+                    totalCount
+                  }
+                }
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+        createdAt
+        updatedAt
+}

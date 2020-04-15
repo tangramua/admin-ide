@@ -1,0 +1,27 @@
+
+
+
+enum EActivityScopes {
+    User
+    Team
+    Cluster
+    Default
+    Workspace
+    Organization
+}
+
+input IActivityCollectRequest {
+    key: String
+    span: String
+    user: String
+    duration: Int
+    status: Boolean
+    payload: String
+    timestamp: String
+    annotations: String
+    scope: EActivityScopes
+}
+
+extend type Mutation {
+    collect(request: IActivityCollectRequest!): Boolean
+}

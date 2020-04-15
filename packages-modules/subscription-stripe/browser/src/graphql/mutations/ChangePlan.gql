@@ -1,0 +1,3 @@
+mutation changePlan($oldPlanId: String, $planId: String) {
+  changePlan(oldPlanId: $oldPlanId, planId: $planId)
+}

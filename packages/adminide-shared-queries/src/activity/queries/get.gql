@@ -1,0 +1,10 @@
+query getActivity($key: ID!) {
+    getActivity(key: $key) {
+        value
+        _id
+        scope
+        target
+        status
+        timestamp
+    }
+}

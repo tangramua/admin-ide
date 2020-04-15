@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connector modules module configuredMenus 1`] = `
+Array [
+  Object {
+    "exact": false,
+    "key": "dashboard",
+    "name": "Dashboard",
+    "path": "/dashboard",
+    "position": "MIDDLE",
+  },
+  Object {
+    "exact": true,
+    "key": "sharedwithme",
+    "name": "Shared With Me",
+    "path": "/sharedwithme",
+    "position": "MIDDLE",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "exact": true,
+            "key": "profile",
+            "name": "Profile Settings",
+            "path": "/usermenu/account/profile",
+            "position": "MIDDLE",
+            "tab": "Profile",
+          },
+          Object {
+            "exact": true,
+            "key": "collaborators",
+            "name": "Collaborators",
+            "path": "/usermenu/account/collaborators",
+            "position": "MIDDLE",
+            "tab": "Collaborators",
+          },
+          Object {
+            "exact": true,
+            "key": "integration",
+            "name": "Integration",
+            "path": "/usermenu/account/integration",
+            "position": "MIDDLE",
+            "tab": "Integration",
+          },
+          Object {
+            "exact": true,
+            "key": "tokens",
+            "name": "Tokens",
+            "path": "/usermenu/account/tokens",
+            "position": "MIDDLE",
+            "tab": "Tokens",
+          },
+          Object {
+            "exact": true,
+            "key": "referrals",
+            "name": "Referrals",
+            "path": "/usermenu/account/referrals",
+            "position": "MIDDLE",
+            "tab": "Referrals",
+          },
+        ],
+        "exact": false,
+        "key": "account",
+        "name": "Accounts",
+        "path": "/usermenu/account",
+        "position": "MIDDLE",
+        "tab": "Accounts",
+      },
+    ],
+    "exact": false,
+    "key": "usermenu",
+    "name": "UserMenu",
+    "path": "/usermenu",
+    "position": "BOTTOM",
+    "tab": "UserMenu",
+  },
+  Object {
+    "exact": true,
+    "key": "stack",
+    "name": "Stack",
+    "path": "/stack",
+    "position": "MIDDLE",
+  },
+]
+`;
+
+exports[`connector modules module configuredRoutes 1`] = `
+Array [
+  Object {
+    "component": [Function],
+    "exact": false,
+    "path": "/dashboard",
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/sharedwithme",
+  },
+  Object {
+    "component": [Function],
+    "exact": false,
+    "path": "/usermenu/account",
+    "routes": Array [
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/usermenu/account/profile",
+      },
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/usermenu/account/collaborators",
+      },
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/usermenu/account/integration",
+      },
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/usermenu/account/tokens",
+      },
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/usermenu/account/referrals",
+      },
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/create-workspace",
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/workspace/:id/details",
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/stack",
+    "routes": Array [
+      Object {
+        "component": [Function],
+        "exact": true,
+        "path": "/stack/chart/:repo/:chart",
+      },
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "path": "/workspace/:id",
+  },
+]
+`;
+
+exports[`connector modules module menus 1`] = `
+Array [
+  Object {
+    "exact": false,
+    "key": "dashboard",
+    "name": "Dashboard",
+    "path": "/dashboard",
+    "position": "MIDDLE",
+  },
+  Object {
+    "exact": true,
+    "key": "sharedwithme",
+    "name": "Shared With Me",
+    "path": "/sharedwithme",
+    "position": "MIDDLE",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "exact": true,
+            "key": "profile",
+            "name": "Profile Settings",
+            "path": "/usermenu/account/profile",
+            "position": "MIDDLE",
+            "tab": "Profile",
+          },
+          Object {
+            "exact": true,
+            "key": "collaborators",
+            "name": "Collaborators",
+            "path": "/usermenu/account/collaborators",
+            "position": "MIDDLE",
+            "tab": "Collaborators",
+          },
+          Object {
+            "exact": true,
+            "key": "integration",
+            "name": "Integration",
+            "path": "/usermenu/account/integration",
+            "position": "MIDDLE",
+            "tab": "Integration",
+          },
+          Object {
+            "exact": true,
+            "key": "tokens",
+            "name": "Tokens",
+            "path": "/usermenu/account/tokens",
+            "position": "MIDDLE",
+            "tab": "Tokens",
+          },
+          Object {
+            "exact": true,
+            "key": "referrals",
+            "name": "Referrals",
+            "path": "/usermenu/account/referrals",
+            "position": "MIDDLE",
+            "tab": "Referrals",
+          },
+        ],
+        "exact": false,
+        "key": "account",
+        "name": "Accounts",
+        "path": "/usermenu/account",
+        "position": "MIDDLE",
+        "tab": "Accounts",
+      },
+    ],
+    "exact": false,
+    "key": "usermenu",
+    "name": "UserMenu",
+    "path": "/usermenu",
+    "position": "BOTTOM",
+    "tab": "UserMenu",
+  },
+  Object {
+    "exact": true,
+    "key": "stack",
+    "name": "Stack",
+    "path": "/stack",
+    "position": "MIDDLE",
+  },
+]
+`;
+
+exports[`connector modules module routes 1`] = `
+<Switch>
+  <Route
+    path="/repositories"
+    render={[Function]}
+  />
+  <Route
+    path="/repo-demo"
+    render={[Function]}
+  />
+  <Route
+    exact={false}
+    path="/dashboard"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/sharedwithme"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={false}
+    path="/usermenu/account"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/create-workspace"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/workspace/:id/details"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/stack"
+    render={[Function]}
+    strict={undefined}
+  />
+  <Route
+    exact={true}
+    path="/workspace/:id"
+    render={[Function]}
+    strict={undefined}
+  />
+</Switch>
+`;

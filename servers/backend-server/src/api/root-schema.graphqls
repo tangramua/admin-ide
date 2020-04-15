@@ -1,0 +1,42 @@
+scalar AnyObject
+scalar Date
+scalar Time
+scalar DateTime
+
+scalar JSON
+scalar JSONObject
+
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type FieldError {
+  field: String!
+  message: String!
+}
+
+type Query {
+    dummy: Int
+}
+
+type Mutation {
+    dummy: Int
+}
+
+type Subscription {
+    dummy: Int
+}
+
+#interface Node {
+#      id: ID!
+#}
+
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+

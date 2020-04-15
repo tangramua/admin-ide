@@ -1,0 +1,3 @@
+mutation removeDockerRegistry($_id: ID) {
+	removeDockerRegistry(_id: $_id)
+}

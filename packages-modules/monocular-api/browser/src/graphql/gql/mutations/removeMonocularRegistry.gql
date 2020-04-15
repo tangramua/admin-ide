@@ -1,0 +1,3 @@
+mutation removeMonocularRegistry($_id: ID) {
+	removeMonocularRegistry(_id: $_id)
+}

@@ -1,0 +1,35 @@
+// https://codingsans.com/blog/mongoose-models-using-typescript-classes
+import * as mongoose from 'mongoose';
+import { config } from './env-config';
+let connectionOptions: mongoose.ConnectionOptions | undefined;
+
+(mongoose as any).Promise = global.Promise;
+
+
+// TODO for more production usage
+const uri: string = `mongodb://${process.env.MONGODB_HOST_AND_PORT_LIST}/${
+  process.env.MONGODB_DATABASE_NAME
+}`;
+const mongooseConnectionOptions: mongoose.ConnectionOptions = {
+    autoReconnect: true,
+    reconnectTries: 3,
+    user: process.env.MONGODB_DB_USERNAME,
+    pass: process.env.MONGODB_DB_PASSWORD,
+    authSource: process.env.MONGODB_AUTH_SOURCE,
+    replicaSet: process.env.MONGODB_REPLICASET,
+};
+
+
+mongoose.connect(config.MONGO_URL, {
+}).then(() => {
+    console.info('mogoose connect - success');
+    // console.info(`uri - ${uri}`);
+    // console.info(`connectionOptions - ${connectionOptions}`);
+}).catch((err: mongoose.Error) => {
+    console.error('mogoose connect - error - ', err);
+    // throw err;
+    process.kill(process.pid);
+});
+
+const mongooseConnection: mongoose.Connection = mongoose.connection;
+export { mongooseConnection };
